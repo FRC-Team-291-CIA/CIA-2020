@@ -23,13 +23,13 @@ public class Robot extends TimedRobot {
     //operator = new Joystick(1); //Removed Operator Until Needed
 
     driveBase = new CIA_DriveBase(RobotMap.leftDriveMotors, RobotMap.rightDriveMotors, 
-    RobotMap.shifterSolenoidPort, Constants.deadband, Constants.lowSpeed, Constants.highSpeed, 
-    Constants.override, Constants.rightReverse, Constants.allReverse);
+    RobotMap.shifterSolenoidPort, Constants.driveDeadband, Constants.driveLowSpeed, Constants.driveHighSpeed, 
+    Constants.driveOverride, Constants.driveRightReverse, Constants.driveAllReverse);
 
     intake = new CIA_Intake(RobotMap.leftDriveMotors, RobotMap.rightDriveMotors, Constants.intakePower, 
     Constants.intakeIsReversed);
 
-    dump = new CIA_Dump(RobotMap.dumpSolenoidPort, Constants.dumpIsReversed);
+    dump = new CIA_Dump(RobotMap.dumpSolenoidPortZero, RobotMap.dumpSolenoidPortOne, Constants.dumpIsReversed);
   }
 
   @Override

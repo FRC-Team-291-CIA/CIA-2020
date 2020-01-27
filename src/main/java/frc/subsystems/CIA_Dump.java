@@ -5,12 +5,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 //TODO - Add Comments
 public class CIA_Dump {
-    private Solenoid piston;
+    private Solenoid pistonZero, pistonOne;
     private boolean isReversed;
     private String currentState = "State_Not_Set_Yet";
 
-    public CIA_Dump(int newPistonPort, boolean newIsReversed){
-        piston = new Solenoid(newPistonPort);
+    public CIA_Dump(int newPistonPortZero, int newPistonPortOne, boolean newIsReversed){
+        pistonZero = new Solenoid(newPistonPortZero);
+        pistonOne = new Solenoid(newPistonPortOne);
 
         isReversed = newIsReversed;
     }  
@@ -22,9 +23,11 @@ public class CIA_Dump {
 
     public void setPiston(boolean pistonValue){
         if(isReversed){
-            piston.set(!pistonValue);
+            pistonZero.set(!pistonValue);
+            pistonOne.set(!pistonValue);
         }else{
-            piston.set(pistonValue);
+            pistonZero.set(pistonValue);
+            pistonOne.set(pistonValue);
         }
     }
 

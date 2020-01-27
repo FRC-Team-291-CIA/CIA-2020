@@ -5,6 +5,7 @@ public class RobotMap {
         //Motors for Drive Base
         public static final int leftDriveMotors = 0;
         public static final int rightDriveMotors = 1;
+
         //Motors for Intake
         public static final int leftIntakeMotor = 2;
         public static final int rightIntakeMotor = 3;
@@ -14,5 +15,6 @@ public class RobotMap {
         public static final int shifterSolenoidPort = 0;  
         
         //Solenoid for Dump
-        public static final int dumpSolenoidPort = 1;
+        public static final int dumpSolenoidPortZero = 1;
+        public static final int dumpSolenoidPortOne = 2; 
 }

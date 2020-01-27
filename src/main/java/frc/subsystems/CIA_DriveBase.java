@@ -4,16 +4,17 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Encoder;
+//import edu.wpi.first.wpilibj.Encoder;
 
+//TODO - Add Encoders and Solenoids to DriveBase
 public class CIA_DriveBase {
-    Spark motorZero, motorOne, motorTwo, motorThree, motorFour, motorFive, motorSix, motorSeven;
-    SpeedControllerGroup leftGroup, rightGroup;
-    //Solenoid shifter;
-    double lowSpeed, highSpeed, deadband, mathLeft, mathRight, overrideSpeed;
-    boolean inHighState = false;
-    boolean rightReverse, allReverse;
-    Encoder leftEncoder, rightEncoder;
+    private Spark motorZero, motorOne;
+    private SpeedControllerGroup leftGroup, rightGroup;
+    //private Solenoid shifter;
+    private double lowSpeed, highSpeed, deadband, mathLeft, mathRight, overrideSpeed;
+    private boolean inHighState = false;
+    private boolean rightReverse, allReverse;
+    //private Encoder leftEncoder, rightEncoder;
 
     /*
     Below is a contructor that takes in the follwoing in order:
