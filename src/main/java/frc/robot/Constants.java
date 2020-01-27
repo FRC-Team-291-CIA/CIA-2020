@@ -1,6 +1,8 @@
 package frc.robot;
 
 public class Constants {
+    //This class holds all the constants used by the robot
+
     //Below is used for Drive Base
     public static final double driveDeadband = 0.02; //If joysticks are equal or lower than this the motors dont move.
     public static final double driveLowSpeed = 0.75; //Speed used if in low speed.
@@ -14,5 +16,5 @@ public class Constants {
     public static final boolean intakeIsReversed = false; //Boolean Used To Reverse It
 
     //Below is used for dump
-    public static final boolean dumpIsReversed = false;
+    public static final boolean dumpIsReversed = false; //Used to revserse the dump solenoid
 }

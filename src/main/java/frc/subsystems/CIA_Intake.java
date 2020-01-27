@@ -3,56 +3,66 @@ package frc.subsystems;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-//TODO - Add Comments
 public class CIA_Intake {
-    private Spark motorZero, motorOne;
-    private double intakePower;
-    private boolean isReversed;
-    private String currentState = "State_Not_Set_Yet";
+    private Spark motorZero, motorOne; //Creates the spark object names
+    private double intakePower; //Used to set the powers to the motors
+    private boolean isReversed; //Used to reverse the motors if needed
+    private String currentState = "State_Not_Set_Yet"; //Used for displaying the curretn state to daashbaord
 
+    /*
+    Below is a contructor that takes in the following in order: 
+    The first motor port, The second motor port, The Power of Motors, If it is reversed
+    */
     public CIA_Intake(int newMotorPortZero, int newMotorPortOne, double newIntakePower, boolean newIsReversed){
-       motorZero = new Spark(newMotorPortZero);
-       motorOne = new Spark(newMotorPortOne);
+        //Below creates the sparks
+        motorZero = new Spark(newMotorPortZero); //Creates the sparks
+        motorOne = new Spark(newMotorPortOne);
 
-       intakePower = newIntakePower;
+        intakePower = newIntakePower; //Takes in the power variable
 
-       isReversed = newIsReversed;
+        isReversed = newIsReversed; //Takes in if its reversed
     }
 
+    //Below is the states that the intake can be in
     public static enum intakeState {
-        INTAKING,
-        OUTTAKING,
-        STOP
+        INTAKING, //Used to intake balls
+        OUTTAKING, //Used to reverse (Only used if clogged or has issues)
+        STOP //Used to keep it stationary
     }
 
-    public void setMotors(double power){
-        if(isReversed){
-            motorZero.set(-power);
+    //Below is used to set the motor powers
+    private void setMotors(double power){
+        if(isReversed){ //Checks to see if it is reversed
+            //Below sets the power to the motors
+            motorZero.set(-power); 
             motorOne.set(power);
-        }else{
-            motorZero.set(power);
-            motorOne.set(-power);
+        }else{ //Used if it is not reversed
+            //Below sets the power to the motors
+            motorZero.set(power); 
+            motorOne.set(-power); 
         }
     }
 
+    //Below is used to take in the wanted state and set the intake to it
     public void setIntakeState(intakeState wantedState){
-        switch(wantedState){
-            case INTAKING:
-                currentState = "Intaking";
-                this.setMotors(intakePower);
+        switch(wantedState){ //Checks to see which state it wants to use
+            case INTAKING: //Used if its intaking
+                currentState = "Intaking"; //Sets the data that goes to smartdashbaord
+                this.setMotors(intakePower); //Uses a method to set the motor power
+                break; 
+            case OUTTAKING: //Used if its outtaking
+                currentState = "Outtaking"; //Sets the data that goes to smartdashboard
+                this.setMotors(-intakePower); //Uses a method to set the motor power
                 break;
-            case OUTTAKING:
-                currentState = "Outtaking";
-                this.setMotors(-intakePower);
-                break;
-            case STOP:
-                currentState = "Stopped";
-                this.setMotors(0.00);
+            case STOP: //Used if its stopped
+                currentState = "Stopped"; //Sets the data that goes to smartdashboard
+                this.setMotors(0.00); //Uses a method to stop the motors
                 break;
         }
     }
 
+    //Below is used to update the smartdashboard
     public void update(){
-        SmartDashboard.putString("Current State:", currentState);
+        SmartDashboard.putString("Current State:", currentState); //Displays the current state
     }
 }

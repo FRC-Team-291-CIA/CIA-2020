@@ -22,14 +22,14 @@ public class Robot extends TimedRobot {
     driver = new Joystick(0);
     //operator = new Joystick(1); //Removed Operator Until Needed
 
-    driveBase = new CIA_DriveBase(RobotMap.leftDriveMotors, RobotMap.rightDriveMotors, 
+    driveBase = new CIA_DriveBase(RobotMap.leftDriveMotorsPort, RobotMap.rightDriveMotorsPort, 
     RobotMap.shifterSolenoidPort, Constants.driveDeadband, Constants.driveLowSpeed, Constants.driveHighSpeed, 
     Constants.driveOverride, Constants.driveRightReverse, Constants.driveAllReverse);
 
-    intake = new CIA_Intake(RobotMap.leftDriveMotors, RobotMap.rightDriveMotors, Constants.intakePower, 
+    intake = new CIA_Intake(RobotMap.leftDriveMotorsPort, RobotMap.rightDriveMotorsPort, Constants.intakePower, 
     Constants.intakeIsReversed);
 
-    dump = new CIA_Dump(RobotMap.dumpSolenoidPortZero, RobotMap.dumpSolenoidPortOne, Constants.dumpIsReversed);
+    dump = new CIA_Dump(RobotMap.dumpSolenoidZeroPort, RobotMap.dumpSolenoidOnePort, Constants.dumpIsReversed);
   }
 
   @Override
@@ -56,7 +56,12 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    driveBase.arcadeDrive(driver.getRawAxis(1), driver.getRawAxis(4), driver.getRawButton(1), driver.getRawButton(4));
+    /*
+    Below is the drive train running in arcade drive
+    The mathod takes in the following in order:
+    Y Axis, X Axis, Switch Gears, Override
+    */
+    driveBase.arcadeDrive(driver.getRawAxis(1), driver.getRawAxis(4), driver.getRawButtonPressed(1), driver.getRawButton(4));
 
     //Below is used to set the intake up
     if(driver.getRawButton(6)){

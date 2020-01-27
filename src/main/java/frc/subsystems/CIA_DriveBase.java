@@ -3,14 +3,14 @@ package frc.subsystems;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-//import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 //import edu.wpi.first.wpilibj.Encoder;
 
-//TODO - Add Encoders and Solenoids to DriveBase
+//TODO - Add Encoders to DriveBase
 public class CIA_DriveBase {
     private Spark motorZero, motorOne;
     private SpeedControllerGroup leftGroup, rightGroup;
-    //private Solenoid shifter;
+    private Solenoid shifter;
     private double lowSpeed, highSpeed, deadband, mathLeft, mathRight, overrideSpeed;
     private boolean inHighState = false;
     private boolean rightReverse, allReverse;
@@ -24,77 +24,95 @@ public class CIA_DriveBase {
     public CIA_DriveBase(int leftMotorsPort, int rightMotorsPort, int shifterSolenoidPort, double newDeadband, 
                         double newLowSpeed, double newHighSpeed, double newOverrideSpeed, boolean newRightReverse,
                         boolean newAllReverse){
+        //Below creates the motor objects
         motorZero = new Spark(leftMotorsPort);
         motorOne = new Spark(rightMotorsPort);
 
+        //Below sets each of the motors into groups
         leftGroup = new SpeedControllerGroup(motorZero);
         rightGroup = new SpeedControllerGroup(motorOne);
 
-        //shifter = new Solenoid(shifterSolenoidPort);
+        shifter = new Solenoid(shifterSolenoidPort); //Creates the solenoid object for shifting
 
-        deadband = newDeadband;
+        deadband = newDeadband; //Takes in the deadband variable
 
-        lowSpeed = newLowSpeed;
-        highSpeed = newHighSpeed;
+        lowSpeed = newLowSpeed; //Takes in the low speed variable
+        highSpeed = newHighSpeed; //Takes in the high speed variable
 
-        overrideSpeed = newOverrideSpeed;
+        overrideSpeed = newOverrideSpeed; //Takes in the override speed variable
     }
 
+    //Used to set the state of the gears
     private void updateGears(){
         if(inHighState){
-            //shifter.set(true);
+            shifter.set(true);
         } else {
-            //shifter.set(false);
+            shifter.set(false);
         }
     }
 
+    /*
+    Below is used for driving in arcade style. Switch Gears must be used with the 
+    .getRawButtonPressed(int button) method for joysticks. This is to prevent it from tripping
+    multiple times
+    */
     public void arcadeDrive(double yAxis, double xAxis, boolean switchGears, boolean override){
-        if(switchGears){
-            inHighState = !inHighState;
+        if(switchGears){ //Checks to see if gears need to switch
+            inHighState = !inHighState; //Switches States
         }
 
-        this.updateGears();
+        this.updateGears(); //Updates the gears solenoid
 
-	    mathLeft = yAxis - xAxis;
-        mathRight = yAxis + xAxis;
+	    mathLeft = yAxis - xAxis; //Calculates the math for the left side
+        mathRight = yAxis + xAxis; //Calculates the math for the right side
     
-
-	    if (Math.abs(mathLeft) <= deadband && Math.abs(mathRight) <= deadband){
-		    leftGroup.set(0); 
+        //Below checks to see if we are under the deadband
+	    if (Math.abs(mathLeft) <= deadband && Math.abs(mathRight) <= deadband){ 
+            //Below sets the motors to zero if under the deadband
+            leftGroup.set(0); 
 		    rightGroup.set(0); 
-	    } else {
-            if(inHighState){
-                if(override){
+	    } else { //USed if above deadband
+            if(inHighState){ //Checks if it is in high state
+                if(override){ //Checks if it is overriden
+                    //Below sets the math speeds
                     mathLeft = mathLeft*overrideSpeed; 
                     mathRight = mathRight*overrideSpeed;
-                } else {
+                } else { //USed if in high and not overriden
+                    //Below sets the math speeds
                     mathLeft = mathLeft*highSpeed;
                     mathRight = mathRight*highSpeed;
                 }
-	        } else {
-                if(override){
+	        } else { //Used if in low speed
+                if(override){ //Checks to see if its overriden
+                    //Belows sets the math speeds
                     mathLeft = mathLeft*overrideSpeed; 
                     mathRight = mathRight*overrideSpeed;
-                } else {
+                } else { //Used if its in low and not overriden
+                    //Below sets the math speeds
                     mathLeft = mathLeft*lowSpeed;
                     mathRight = mathRight*lowSpeed;
                 }
             }
         }
         
-        if(rightReverse){
+        if(rightReverse){ //Checks the right reverse
+            mathRight = -mathRight; //Switches the value
+        }
+
+        if(allReverse){ //Chcks the all reverse
+            //Below switches the value
+            mathLeft = -mathLeft; 
             mathRight = -mathRight;
         }
 
-        if(allReverse){
-            mathLeft = -mathLeft;
-            mathRight = -mathRight;
-        }
+        //Below sets the motors
+        leftGroup.set(this.mathLeft);
+        rightGroup.set(this.mathRight);
     }
 
     public void update(){
-        SmartDashboard.putNumber("Left Drive Base", this.mathLeft);
-        SmartDashboard.putNumber("Right Drive Base", this.mathRight);
-        SmartDashboard.putBoolean("Is High Gear", this.inHighState);
+        SmartDashboard.putNumber("Left Drive Base", this.mathLeft); //Sends the left drive to the dashbaord
+        SmartDashboard.putNumber("Right Drive Base", this.mathRight); //Sends the right drive to the dashboard
+        SmartDashboard.putBoolean("Is High Gear", this.inHighState); //Shows if its in high gear to the dashboard
     }
 }
