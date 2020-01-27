@@ -5,10 +5,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 //TODO - Add Comments
 public class CIA_Intake {
-    Spark motorZero, motorOne;
-    double intakePower;
-    boolean isReversed;
-    String currentState = "State_Not_Set_Yet";
+    private Spark motorZero, motorOne;
+    private double intakePower;
+    private boolean isReversed;
+    private String currentState = "State_Not_Set_Yet";
 
     public CIA_Intake(int newMotorPortZero, int newMotorPortOne, double newIntakePower, boolean newIsReversed){
        motorZero = new Spark(newMotorPortZero);

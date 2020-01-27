@@ -12,10 +12,10 @@ import frc.subsystems.CIA_Dump;
 import frc.subsystems.CIA_Dump.dumpState;
 
 public class Robot extends TimedRobot {
-  CIA_DriveBase driveBase;
-  CIA_Intake intake;
-  CIA_Dump dump;
-  Joystick driver; //, operator //Removed Operator Until Needed
+  private CIA_DriveBase driveBase;
+  private CIA_Intake intake;
+  private CIA_Dump dump;
+  private Joystick driver; //, operator //Removed Operator Until Needed
   
   @Override
   public void robotInit() {
