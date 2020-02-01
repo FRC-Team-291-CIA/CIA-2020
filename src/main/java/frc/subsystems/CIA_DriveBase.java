@@ -2,10 +2,11 @@ package frc.subsystems;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 //import edu.wpi.first.wpilibj.Encoder;
 
-import frc.sensors.CIA_SparkMax; //Out own SparkMax Code
+import frc.sensors.CIA_SparkMax; //Our own SparkMax Code
 
 //TODO - Add Encoders to DriveBase
 public class CIA_DriveBase {
@@ -15,16 +16,17 @@ public class CIA_DriveBase {
     private double lowSpeed, highSpeed, deadband, mathLeft, mathRight, overrideSpeed;
     private boolean inHighState = false;
     private boolean rightReverse, allReverse;
-    //private Encoder leftEncoder, rightEncoder;
+    private Encoder leftEncoder, rightEncoder;
 
     /*
     Below is a contructor that takes in the follwoing in order:
-    Left Motor Port, Right Motor Port, Shifter Solenoid Port, The Deadband,
-    The Low Speed, The High, The Override Speed, Right Side Reverse, All Sides Revesered
+    Left Motor Port, Right Motor Port, Shifter Solenoid Port, Left Encoder Ports, Right Encoder Ports,
+    The Deadband, The Low Speed, The High, The Override Speed, Right Side Reverse, All Sides Revesered
     */
-    public CIA_DriveBase(int leftMotorsPort, int rightMotorsPort, int shifterSolenoidPort, double newDeadband, 
+    public CIA_DriveBase(int leftMotorsPort, int rightMotorsPort, int shifterSolenoidPort, int leftEncoderPortZero, int leftEncoderPortOne, int rightEncoderPortZero, int rightEncoderPortOne, double newDeadband, 
                         double newLowSpeed, double newHighSpeed, double newOverrideSpeed, boolean newRightReverse,
                         boolean newAllReverse){
+
         //Below creates the motor objects
         motorZero = new CIA_SparkMax(leftMotorsPort);
         motorOne = new CIA_SparkMax(rightMotorsPort);
@@ -32,6 +34,10 @@ public class CIA_DriveBase {
         //Below sets each of the motors into groups
         leftGroup = new SpeedControllerGroup(motorZero);
         rightGroup = new SpeedControllerGroup(motorOne);
+
+        //Below creates the encoders
+        leftEncoder = new Encoder(leftEncoderPortZero, leftEncoderPortOne);
+        rightEncoder = new Encoder(rightEncoderPortZero, rightEncoderPortOne);
 
         shifter = new Solenoid(shifterSolenoidPort); //Creates the solenoid object for shifting
 

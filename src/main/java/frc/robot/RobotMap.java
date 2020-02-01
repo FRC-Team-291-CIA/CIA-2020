@@ -19,4 +19,11 @@ public class RobotMap {
         //Solenoid for Dump
         public static final int dumpSolenoidZeroPort = 1;
         public static final int dumpSolenoidOnePort = 2; 
+
+    //Sensors
+        //Encoders for the Drive Train
+        public static final int leftEncoderZeroPort = 0;
+        public static final int leftEncoderOnePort = 1;
+        public static final int rightEncoderZeroPort = 2;
+        public static final int rightEncdoerOnePort = 3;
 }
