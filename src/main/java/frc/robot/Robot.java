@@ -26,7 +26,7 @@ public class Robot extends TimedRobot {
     RobotMap.shifterSolenoidPort, Constants.driveDeadband, Constants.driveLowSpeed, Constants.driveHighSpeed, 
     Constants.driveOverride, Constants.driveRightReverse, Constants.driveAllReverse);
 
-    intake = new CIA_Intake(RobotMap.leftDriveMotorsPort, RobotMap.rightDriveMotorsPort, Constants.intakePower, 
+    intake = new CIA_Intake(RobotMap.leftIntakeMotorPort, RobotMap.rightIntakeMotorPort, Constants.intakePower, 
     Constants.intakeIsReversed);
 
     dump = new CIA_Dump(RobotMap.dumpSolenoidZeroPort, RobotMap.dumpSolenoidOnePort, Constants.dumpIsReversed);
