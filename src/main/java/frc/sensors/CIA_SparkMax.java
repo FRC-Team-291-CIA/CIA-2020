@@ -57,7 +57,7 @@ public class CIA_SparkMax extends PWMSpeedController {
   }
 
 /*
-This was created beacause the Spark Max class could only be accessed by its own package.
-It defaults to this because there is no public infront of the constructor.
+This was created because the Spark Max class could only be accessed by its own package.
+It defaults to this because there is no public in-front of the constructor.
 To fix this add public in front of the constructor
 */

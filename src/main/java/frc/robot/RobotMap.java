@@ -9,8 +9,7 @@ public class RobotMap {
         public static final int rightDriveMotorsPort = 1;
 
         //Motors for Intake
-        public static final int leftIntakeMotorPort = 2;
-        public static final int rightIntakeMotorPort = 3;
+        public static final int intakeMotorPort = 2;
 
     //Solenoids
         //Solenoid for Drive Base
@@ -25,5 +24,5 @@ public class RobotMap {
         public static final int leftEncoderZeroPort = 0;
         public static final int leftEncoderOnePort = 1;
         public static final int rightEncoderZeroPort = 2;
-        public static final int rightEncdoerOnePort = 3;
+        public static final int rightEncoderOnePort = 3;
 }

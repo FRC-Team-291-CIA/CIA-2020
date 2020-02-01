@@ -16,5 +16,5 @@ public class Constants {
     public static final boolean intakeIsReversed = false; //Boolean Used To Reverse It
 
     //Below is used for dump
-    public static final boolean dumpIsReversed = false; //Used to revserse the dump solenoid
+    public static final boolean dumpIsReversed = false; //Used to reverse the dump solenoid
 }

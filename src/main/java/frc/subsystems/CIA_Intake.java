@@ -5,19 +5,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.sensors.CIA_SparkMax;
 
 public class CIA_Intake {
-    private CIA_SparkMax motorZero, motorOne; //Creates the spark object names
+    private CIA_SparkMax motor; //Creates the spark object name
     private double intakePower; //Used to set the powers to the motors
     private boolean isReversed; //Used to reverse the motors if needed
-    private String currentState = "State_Not_Set_Yet"; //Used for displaying the curretn state to daashbaord
+    private String currentState = "State_Not_Set_Yet"; //Used for displaying the current state to dashboard
 
     /*
-    Below is a contructor that takes in the following in order: 
+    Below is a constructor that takes in the following in order: 
     The first motor port, The second motor port, The Power of Motors, If it is reversed
+    These values come from Robot.java
     */
-    public CIA_Intake(int newMotorPortZero, int newMotorPortOne, double newIntakePower, boolean newIsReversed){
-        //Below creates the sparks
-        motorZero = new CIA_SparkMax(newMotorPortZero); //Creates the sparks
-        motorOne = new CIA_SparkMax(newMotorPortOne);
+    public CIA_Intake(int newMotorPort, double newIntakePower, boolean newIsReversed){
+        //Below creates the spark
+        motor = new CIA_SparkMax(newMotorPort); //Creates the sparks
 
         intakePower = newIntakePower; //Takes in the power variable
 
@@ -35,12 +35,10 @@ public class CIA_Intake {
     private void setMotors(double power){
         if(isReversed){ //Checks to see if it is reversed
             //Below sets the power to the motors
-            motorZero.set(-power); 
-            motorOne.set(power);
+            motor.set(-power); 
         }else{ //Used if it is not reversed
             //Below sets the power to the motors
-            motorZero.set(power); 
-            motorOne.set(-power); 
+            motor.set(power); 
         }
     }
 
@@ -48,7 +46,7 @@ public class CIA_Intake {
     public void setIntakeState(intakeState wantedState){
         switch(wantedState){ //Checks to see which state it wants to use
             case INTAKING: //Used if its intaking
-                currentState = "Intaking"; //Sets the data that goes to smartdashbaord
+                currentState = "Intaking"; //Sets the data that goes to smartdashboard
                 this.setMotors(intakePower); //Uses a method to set the motor power
                 break; 
             case OUTTAKING: //Used if its outtaking

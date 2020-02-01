@@ -4,11 +4,9 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
-//import edu.wpi.first.wpilibj.Encoder;
 
 import frc.sensors.CIA_SparkMax; //Our own SparkMax Code
 
-//TODO - Add Encoders to DriveBase
 public class CIA_DriveBase {
     private CIA_SparkMax motorZero, motorOne;
     private SpeedControllerGroup leftGroup, rightGroup;
@@ -19,9 +17,10 @@ public class CIA_DriveBase {
     private Encoder leftEncoder, rightEncoder;
 
     /*
-    Below is a contructor that takes in the follwoing in order:
+    Below is a constructor that takes in the following in order:
     Left Motor Port, Right Motor Port, Shifter Solenoid Port, Left Encoder Ports, Right Encoder Ports,
-    The Deadband, The Low Speed, The High, The Override Speed, Right Side Reverse, All Sides Revesered
+    The Deadband, The Low Speed, The High, The Override Speed, Right Side Reverse, All Sides Reversed
+    These values come from the robot.java class
     */
     public CIA_DriveBase(int leftMotorsPort, int rightMotorsPort, int shifterSolenoidPort, int leftEncoderPortZero, int leftEncoderPortOne, int rightEncoderPortZero, int rightEncoderPortOne, double newDeadband, 
                         double newLowSpeed, double newHighSpeed, double newOverrideSpeed, boolean newRightReverse,
@@ -80,21 +79,21 @@ public class CIA_DriveBase {
 		    rightGroup.set(0); 
 	    } else { //USed if above deadband
             if(inHighState){ //Checks if it is in high state
-                if(override){ //Checks if it is overriden
+                if(override){ //Checks if it is overridden
                     //Below sets the math speeds
                     mathLeft = mathLeft*overrideSpeed; 
                     mathRight = mathRight*overrideSpeed;
-                } else { //USed if in high and not overriden
+                } else { //USed if in high and not overridden
                     //Below sets the math speeds
                     mathLeft = mathLeft*highSpeed;
                     mathRight = mathRight*highSpeed;
                 }
 	        } else { //Used if in low speed
-                if(override){ //Checks to see if its overriden
+                if(override){ //Checks to see if its overridden
                     //Belows sets the math speeds
                     mathLeft = mathLeft*overrideSpeed; 
                     mathRight = mathRight*overrideSpeed;
-                } else { //Used if its in low and not overriden
+                } else { //Used if its in low and not overridden
                     //Below sets the math speeds
                     mathLeft = mathLeft*lowSpeed;
                     mathRight = mathRight*lowSpeed;
@@ -106,7 +105,7 @@ public class CIA_DriveBase {
             mathRight = -mathRight; //Switches the value
         }
 
-        if(allReverse){ //Chcks the all reverse
+        if(allReverse){ //Checks the all reverse
             //Below switches the value
             mathLeft = -mathLeft; 
             mathRight = -mathRight;
@@ -118,7 +117,7 @@ public class CIA_DriveBase {
     }
 
     public void update(){
-        SmartDashboard.putNumber("Left Drive Base", this.mathLeft); //Sends the left drive to the dashbaord
+        SmartDashboard.putNumber("Left Drive Base", this.mathLeft); //Sends the left drive to the dashboard
         SmartDashboard.putNumber("Right Drive Base", this.mathRight); //Sends the right drive to the dashboard
         SmartDashboard.putBoolean("Is High Gear", this.inHighState); //Shows if its in high gear to the dashboard
     }

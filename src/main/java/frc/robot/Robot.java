@@ -22,15 +22,23 @@ public class Robot extends TimedRobot {
     driver = new Joystick(0);
     //operator = new Joystick(1); //Removed Operator Until Needed
 
+    /*
+    Below is a constructor that takes in the following in order:
+    Left Motor Port, Right Motor Port, Shifter Solenoid Port, Left Encoder Ports, Right Encoder Ports,
+    The Deadband, The Low Speed, The High, The Override Speed, Right Side Reverse, All Sides reversed
+    */
     driveBase = new CIA_DriveBase(RobotMap.leftDriveMotorsPort, RobotMap.rightDriveMotorsPort, 
     RobotMap.shifterSolenoidPort, RobotMap.leftEncoderZeroPort, RobotMap.leftEncoderOnePort, 
-    RobotMap.rightEncoderZeroPort, RobotMap.rightEncdoerOnePort ,Constants.driveDeadband, 
+    RobotMap.rightEncoderZeroPort, RobotMap.rightEncoderOnePort ,Constants.driveDeadband, 
     Constants.driveLowSpeed, Constants.driveHighSpeed, Constants.driveOverride, 
     Constants.driveRightReverse, Constants.driveAllReverse);
 
-    intake = new CIA_Intake(RobotMap.leftIntakeMotorPort, RobotMap.rightIntakeMotorPort, Constants.intakePower, 
-    Constants.intakeIsReversed);
-
+    intake = new CIA_Intake(RobotMap.intakeMotorPort, Constants.intakePower, Constants.intakeIsReversed);
+    
+    /*
+    Below is a constructor that takes in the following:
+    First Solenoid Port, Second Solenoid Port, If it is reversed
+    */
     dump = new CIA_Dump(RobotMap.dumpSolenoidZeroPort, RobotMap.dumpSolenoidOnePort, Constants.dumpIsReversed);
   }
 
@@ -60,7 +68,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     /*
     Below is the drive train running in arcade drive
-    The mathod takes in the following in order:
+    The method takes in the following in order:
     Y Axis, X Axis, Switch Gears, Override
     */
     driveBase.arcadeDrive(driver.getRawAxis(1), driver.getRawAxis(4), driver.getRawButtonPressed(1), driver.getRawButton(4));
