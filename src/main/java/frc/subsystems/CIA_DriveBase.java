@@ -1,14 +1,15 @@
 package frc.subsystems;
 
-import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Solenoid;
 //import edu.wpi.first.wpilibj.Encoder;
 
+import frc.sensors.CIA_SparkMax; //Out own SparkMax Code
+
 //TODO - Add Encoders to DriveBase
 public class CIA_DriveBase {
-    private Spark motorZero, motorOne;
+    private CIA_SparkMax motorZero, motorOne;
     private SpeedControllerGroup leftGroup, rightGroup;
     private Solenoid shifter;
     private double lowSpeed, highSpeed, deadband, mathLeft, mathRight, overrideSpeed;
@@ -25,8 +26,8 @@ public class CIA_DriveBase {
                         double newLowSpeed, double newHighSpeed, double newOverrideSpeed, boolean newRightReverse,
                         boolean newAllReverse){
         //Below creates the motor objects
-        motorZero = new Spark(leftMotorsPort);
-        motorOne = new Spark(rightMotorsPort);
+        motorZero = new CIA_SparkMax(leftMotorsPort);
+        motorOne = new CIA_SparkMax(rightMotorsPort);
 
         //Below sets each of the motors into groups
         leftGroup = new SpeedControllerGroup(motorZero);
