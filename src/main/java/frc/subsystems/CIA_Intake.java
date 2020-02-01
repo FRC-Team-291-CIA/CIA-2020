@@ -1,10 +1,11 @@
 package frc.subsystems;
 
-import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import frc.sensors.CIA_SparkMax;
+
 public class CIA_Intake {
-    private Spark motorZero, motorOne; //Creates the spark object names
+    private CIA_SparkMax motorZero, motorOne; //Creates the spark object names
     private double intakePower; //Used to set the powers to the motors
     private boolean isReversed; //Used to reverse the motors if needed
     private String currentState = "State_Not_Set_Yet"; //Used for displaying the curretn state to daashbaord
@@ -15,8 +16,8 @@ public class CIA_Intake {
     */
     public CIA_Intake(int newMotorPortZero, int newMotorPortOne, double newIntakePower, boolean newIsReversed){
         //Below creates the sparks
-        motorZero = new Spark(newMotorPortZero); //Creates the sparks
-        motorOne = new Spark(newMotorPortOne);
+        motorZero = new CIA_SparkMax(newMotorPortZero); //Creates the sparks
+        motorOne = new CIA_SparkMax(newMotorPortOne);
 
         intakePower = newIntakePower; //Takes in the power variable
 
