@@ -38,6 +38,9 @@ public class CIA_DriveBase {
         leftEncoder = new Encoder(leftEncoderPortZero, leftEncoderPortOne);
         rightEncoder = new Encoder(rightEncoderPortZero, rightEncoderPortOne);
 
+        leftEncoder.setDistancePerPulse(1);
+        rightEncoder.setDistancePerPulse(1);
+
         shifter = new Solenoid(shifterSolenoidPort); //Creates the solenoid object for shifting
 
         deadband = newDeadband; //Takes in the deadband variable
