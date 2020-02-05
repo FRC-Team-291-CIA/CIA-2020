@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class CIA_Dump {
     private Solenoid pistonZero, pistonOne; //Creates the object names
     private boolean isReversed; //Used if it needs reversed
-    private String currentState = "State_Not_Set_Yet"; //Used for the smartdashboard
+    private String currentState = "Dump_State_Not_Set_Yet"; //Used for the smartdashboard
 
     /*
     Below is a constructor that takes in the following:

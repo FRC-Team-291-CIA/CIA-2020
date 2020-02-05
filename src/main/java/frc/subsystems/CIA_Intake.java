@@ -8,7 +8,7 @@ public class CIA_Intake {
     private CIA_SparkMax motor; //Creates the spark object name
     private double intakePower; //Used to set the powers to the motors
     private boolean isReversed; //Used to reverse the motors if needed
-    private String currentState = "State_Not_Set_Yet"; //Used for displaying the current state to dashboard
+    private String currentState = "Intake_State_Not_Set_Yet"; //Used for displaying the current state to dashboard
 
     /*
     Below is a constructor that takes in the following in order: 
