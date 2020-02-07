@@ -62,6 +62,6 @@ public class CIA_Intake {
 
     //Below is used to update the smartdashboard
     public void update(){
-        SmartDashboard.putString("Current State:", currentState); //Displays the current state
+        SmartDashboard.putString("Intake Current State:", currentState); //Displays the current state
     }
 }
