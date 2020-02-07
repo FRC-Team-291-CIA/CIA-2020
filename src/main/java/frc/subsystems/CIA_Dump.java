@@ -7,6 +7,14 @@ public class CIA_Dump {
     private Solenoid pistonZero, pistonOne; //Creates the object names
     private boolean isReversed; //Used if it needs reversed
     private String currentState = "Dump_State_Not_Set_Yet"; //Used for the smartdashboard
+    private dumpState lastState;
+
+    //Below is the states that the dump can be in
+    public static enum dumpState {
+        OPEN, //Used to lower the gate and let balls out
+        CLOSED, //Used to raise the gate and keep balls in
+        CURRENT_STATE //Used to keep it in the current state
+    }
 
     /*
     Below is a constructor that takes in the following:
@@ -19,13 +27,9 @@ public class CIA_Dump {
         pistonOne = new Solenoid(newPistonPortOne);
 
         isReversed = newIsReversed; //Takes in if it is reversed
-    }  
 
-    //Below is the states that the dump can be in
-    public static enum dumpState {
-        OPEN, //Used to lower the gate and let balls out
-        CLOSED //Used to raise the gate and keep balls in
-    }
+        lastState = dumpState.CLOSED;
+    }  
 
     //Below is used to set the solenoids into position
     private void setPiston(boolean pistonValue){
@@ -51,10 +55,17 @@ public class CIA_Dump {
                 currentState = "CLOSED"; //Sets the data used in smartdashboard
                 this.setPiston(false); //Uses a method to set the piston state
                 break;
+            case CURRENT_STATE: //Used to keep its current state
+                if (dumpState.CLOSED == this.lastState){ //Checks to see if the last state was closed
+                    this.setDumpState(dumpState.CLOSED); //Sets it to closed
+                } else { //Used if the last state was not closed
+                    this.setDumpState(dumpState.OPEN); //Sets it to open
+                }
+                break;
         }
     }
 
     public void update(){
-        SmartDashboard.putString("Current State:", currentState); //Sends data to the smartdashboard
+        SmartDashboard.putString("Dump Current State:", currentState); //Sends data to the smartdashboard
     }
 }
