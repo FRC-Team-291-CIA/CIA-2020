@@ -3,14 +3,16 @@ package frc.robot;
 public class Controls {
     //This class contains all of the buttons and axis assignments
 
-    //Driver - Must be in BLANK mode
-        public static final int yAxis = 0;
-        public static final int xAxis = 1;
-        public static final int dumpOpenButton = 1;
-        public static final int shifterButton = 2;
-        public static final int driveOverrideButton = 3;
-        public static final int cameraSwitchButton = 4;
+    //Driver - Must be in "X" mode
+        public static final int driverYAxis = 1; //Left Stick - Up and Down
+        public static final int driverXAxis = 4; //Right Stick - Left and Right
+        public static final int driverDumpOpenButton = 1; //Green "A"
+        public static final int driverShifterButton = 5; //Left Top Bumper
+        public static final int driverDriveOverrideButton = 6; //Right TOp Bumper
+        public static final int driverCameraSwitchButton = 2; //Red "B"
 
-    //Operator - Must be in BLANK mode
-        public static final int ballIntakeButton = 1;
+    //Operator - Must be in "D" mode
+        public static final int operatorBallIntakeButton = 2; //Green "A"
+        public static final int operatorBallOuttakeButton = 3; //Red "B"
+        public static final int operatorDumpCloseButton = 6; //Top Right Bumper
 }

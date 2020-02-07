@@ -1,7 +1,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.Joystick;
+
+import frc.robot.RobotMap;
+import frc.robot.Constants;
+import frc.robot.Controls;
 
 import frc.subsystems.CIA_DriveBase;
 
@@ -11,16 +16,19 @@ import frc.subsystems.CIA_Intake.intakeState;
 import frc.subsystems.CIA_Dump;
 import frc.subsystems.CIA_Dump.dumpState;
 
+
 public class Robot extends TimedRobot {
   private CIA_DriveBase driveBase;
   private CIA_Intake intake;
   private CIA_Dump dump;
-  private Joystick driver; //, operator //Removed Operator Until Needed
-  
+  private Joystick driver, operator;
+
   @Override
   public void robotInit() {
+    LiveWindow.disableAllTelemetry();
+
     driver = new Joystick(0);
-    //operator = new Joystick(1); //Removed Operator Until Needed
+    operator = new Joystick(1);
 
     /*
     Below is a constructor that takes in the following in order:
@@ -71,14 +79,15 @@ public class Robot extends TimedRobot {
     The method takes in the following in order:
     Y Axis, X Axis, Switch Gears, Override
     */
-    driveBase.arcadeDrive(driver.getRawAxis(1), driver.getRawAxis(4), driver.getRawButtonPressed(1), driver.getRawButton(4));
+    driveBase.arcadeDrive(driver.getRawAxis(Controls.driverYAxis), driver.getRawAxis(Controls.driverXAxis), 
+    driver.getRawButtonPressed(Controls.driverShifterButton), driver.getRawButton(Controls.driverDriveOverrideButton));
 
     //Below is used to set the intake up
-    if(driver.getRawButton(6)){
+    if(operator.getRawButton(Controls.operatorBallIntakeButton)){
 
       intake.setIntakeState(intakeState.INTAKING);
 
-    } else if(driver.getRawButton(7)){
+    } else if(operator.getRawButton(Controls.operatorBallOuttakeButton)){
 
       intake.setIntakeState(intakeState.OUTTAKING);
 
@@ -88,14 +97,18 @@ public class Robot extends TimedRobot {
     }
 
     //Below is used for the dump
-    if(driver.getRawButton(8)){
+    if(driver.getRawButton(Controls.driverDumpOpenButton)){
 
       dump.setDumpState(dumpState.OPEN);
 
-    } else {
+    } else if (operator.getRawButton(Controls.operatorDumpCloseButton)){
 
       dump.setDumpState(dumpState.CLOSED);
       
+    } else {
+
+      dump.setDumpState(dumpState.CURRENT_STATE);
+
     }
   }
   
