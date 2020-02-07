@@ -25,8 +25,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    LiveWindow.disableAllTelemetry();
+    LiveWindow.disableAllTelemetry(); //Disabled due to too many can errors
 
+    //Below the joysticks are created
     driver = new Joystick(0);
     operator = new Joystick(1);
 
@@ -41,6 +42,10 @@ public class Robot extends TimedRobot {
     Constants.driveLowSpeed, Constants.driveHighSpeed, Constants.driveOverride, 
     Constants.driveRightReverse, Constants.driveAllReverse);
 
+    /*
+    Below is a constructor that takes in the following in order: 
+    The first motor port, The second motor port, The Power of Motors, If it is reversed
+    */
     intake = new CIA_Intake(RobotMap.intakeMotorPort, Constants.intakePower, Constants.intakeIsReversed);
     
     /*
