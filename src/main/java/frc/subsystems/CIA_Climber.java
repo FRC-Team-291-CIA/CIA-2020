@@ -12,6 +12,7 @@ public class CIA_Climber {
     private DoubleSolenoid piston;
     private String currentState = "CLIMBER_STATE_NOT_SET";
     private double motorSpeed;
+    private boolean hasGoneUp = false; //Used to tell if the climber has gone up
     private climbState lastState = climbState.STORE;
     
     //Below is the states that the climber can be in
@@ -62,36 +63,52 @@ public class CIA_Climber {
     }
     
     //Below is used to take in the wanted state and set the climber to it
-    public void setIntakeState(climbState wantedState){
+    public void setClimbState(climbState wantedState){
         switch(wantedState){ //Checks to see which state it wants to use
             case UP: //Used if its the climber is up
+                lastState = climbState.UP;
+                hasGoneUp = true;
                 currentState = "UP"; //Sets the data that goes to smartdashboard
                 winch.set(0.00);
                 piston.set(Value.kForward);
                 break; 
             case CLIMB: //Used if its bringing the climber down
-                currentState = "CLIMB"; //Sets the data that goes to smartdashboard
-                winch.set(this.motorSpeed);
-                piston.set(Value.kReverse);
+                lastState = climbState.CLIMB;
+
+                if (hasGoneUp){
+
+                    currentState = "CLIMB"; //Sets the data that goes to smartdashboard
+                    winch.set(this.motorSpeed);
+                    piston.set(Value.kReverse);
+
+                } else {
+
+                    currentState = "YOU NEED TO GO UP FIRST!"; //Sets the data that goes to smartdashboard
+                    winch.set(0.00);
+                    piston.set(Value.kForward);
+
+                }
+
                 break;
             case STORE: //Used to store the climber
+                lastState = climbState.STORE;
+                hasGoneUp = false;
                 currentState = "STORE"; //Sets the data that goes to smartdashboard
                 winch.set(0.00);
                 piston.set(Value.kForward);
                 break;    
             case CURRENT_STATE: //Used to keep it in its current state
-                currentState = "CURRENT_STATE"; //Sets the data that goes to smartdashboard
                 if (lastState == climbState.STORE){
 
-                    this.setIntakeState(climbState.STORE);
+                    this.setClimbState(climbState.STORE);
 
                 } else if (lastState == climbState.UP){
 
-                    this.setIntakeState(climbState.UP);
+                    this.setClimbState(climbState.UP);
 
                 } else {
 
-                    this.setIntakeState(climbState.CLIMB);
+                    this.setClimbState(climbState.CLIMB);
 
                 }
 

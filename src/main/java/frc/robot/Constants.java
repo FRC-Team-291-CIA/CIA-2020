@@ -17,4 +17,9 @@ public class Constants {
 
     //Below is used for dump
     public static final boolean dumpIsReversed = false; //Used to reverse the dump solenoid
+
+    //Below is used for the climber
+    public static final double climberPower = 0.1; //Used for the climber power
+    public static final boolean climberRightReversed = false; //Used for reversing right side of climber
+    public static final boolean climberAllReversed = false; //Used for reversing the entire climber
 }

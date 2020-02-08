@@ -1,7 +1,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 
 import frc.robot.RobotMap;
@@ -16,11 +18,15 @@ import frc.subsystems.CIA_Intake.intakeState;
 import frc.subsystems.CIA_Dump;
 import frc.subsystems.CIA_Dump.dumpState;
 
+import frc.subsystems.CIA_Climber;
+import frc.subsystems.CIA_Climber.climbState;
+
 
 public class Robot extends TimedRobot {
   private CIA_DriveBase driveBase;
   private CIA_Intake intake;
   private CIA_Dump dump;
+  private CIA_Climber climber;
   private Joystick driver, operator;
 
   @Override
@@ -53,6 +59,15 @@ public class Robot extends TimedRobot {
     First Solenoid Port, Second Solenoid Port, If it is reversed
     */
     dump = new CIA_Dump(RobotMap.dumpSolenoidZeroPort, RobotMap.dumpSolenoidOnePort, Constants.dumpIsReversed);
+
+    /*
+    Below is a constructor that takes in the following in order:
+    The first motor, the second motor, the first and second double solenoid port, the motor speed,
+    right reversed boolean, all reversed all
+    */
+    climber = new CIA_Climber(RobotMap.climberMotorLeftPort, RobotMap.climberMotorRightPort, 
+    RobotMap.climberSolenoidForwardPort, RobotMap.climberSolenoidReversePort, Constants.climberPower, 
+    Constants.climberRightReversed, Constants.climberAllReversed);
   }
 
   @Override
@@ -60,6 +75,7 @@ public class Robot extends TimedRobot {
     driveBase.update();
     intake.update();
     dump.update();
+    climber.update();
   }
 
   @Override
@@ -113,6 +129,25 @@ public class Robot extends TimedRobot {
     } else {
 
       dump.setDumpState(dumpState.CURRENT_STATE);
+
+    }
+
+    //Below is used for the climber
+    if (driver.getRawButton(Controls.driverClimberClimbZeroButton) && driver.getRawButton(Controls.driverClimberClimbOneButton)){
+      
+      climber.setClimbState(climbState.CLIMB);
+
+    } else if (operator.getRawButton(Controls.operatorClimberUp)){
+
+      climber.setClimbState(climbState.UP);
+
+    } else if (operator.getRawButton(Controls.operatorClimberStore)){
+
+      climber.setClimbState(climbState.STORE);
+ 
+    } else {
+
+      climber.setClimbState(climbState.CURRENT_STATE);
 
     }
   }
