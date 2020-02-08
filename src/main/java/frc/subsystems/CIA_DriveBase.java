@@ -13,7 +13,6 @@ public class CIA_DriveBase {
     private Solenoid shifter;
     private double lowSpeed, highSpeed, deadband, mathLeft, mathRight, overrideSpeed;
     private boolean inHighState = false;
-    private boolean rightReverse, allReverse;
     private Encoder leftEncoder, rightEncoder;
 
     /*
@@ -23,9 +22,9 @@ public class CIA_DriveBase {
     These values come from the robot.java class
     */
     public CIA_DriveBase(int leftMotorsPort, int rightMotorsPort, int shifterSolenoidPort, int leftEncoderPortZero, int leftEncoderPortOne, int rightEncoderPortZero, int rightEncoderPortOne, double newDeadband, 
-                        double newLowSpeed, double newHighSpeed, double newOverrideSpeed, boolean newRightReverse,
-                        boolean newAllReverse){
-
+                        double newLowSpeed, double newHighSpeed, double newOverrideSpeed, boolean newIsRightReversed,
+                        boolean newIsAllReversed){
+                            
         //Below creates the motor objects
         motorZero = new CIA_SparkMax(leftMotorsPort);
         motorOne = new CIA_SparkMax(rightMotorsPort);
@@ -34,10 +33,11 @@ public class CIA_DriveBase {
         leftGroup = new SpeedControllerGroup(motorZero);
         rightGroup = new SpeedControllerGroup(motorOne);
 
+        this.setInvertedGroups(newIsRightReversed, newIsAllReversed);
+
         //Below creates the encoders
         leftEncoder = new Encoder(leftEncoderPortZero, leftEncoderPortOne);
         rightEncoder = new Encoder(rightEncoderPortZero, rightEncoderPortOne);
-
         leftEncoder.setDistancePerPulse(1);
         rightEncoder.setDistancePerPulse(1);
 
@@ -49,6 +49,20 @@ public class CIA_DriveBase {
         highSpeed = newHighSpeed; //Takes in the high speed variable
 
         overrideSpeed = newOverrideSpeed; //Takes in the override speed variable
+    }
+
+    private void setInvertedGroups(boolean isRightReversed, boolean isAllReversed){
+        if (isRightReversed){
+            rightGroup.setInverted(true);
+        }
+
+        if (isAllReversed){
+            leftGroup.setInverted(true);
+            
+            if (rightGroup.getInverted()){
+                rightGroup.setInverted(false);
+            }
+        }
     }
 
     //Used to set the state of the gears
@@ -104,16 +118,6 @@ public class CIA_DriveBase {
             }
         }
         
-        if(rightReverse){ //Checks the right reverse
-            mathRight = -mathRight; //Switches the value
-        }
-
-        if(allReverse){ //Checks the all reverse
-            //Below switches the value
-            mathLeft = -mathLeft; 
-            mathRight = -mathRight;
-        }
-
         //Below sets the motors
         leftGroup.set(this.mathLeft);
         rightGroup.set(this.mathRight);
