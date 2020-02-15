@@ -1,9 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 
 import frc.robot.RobotMap;
@@ -20,7 +18,6 @@ import frc.subsystems.CIA_Dump.dumpState;
 
 import frc.subsystems.CIA_Climber;
 import frc.subsystems.CIA_Climber.climbState;
-
 
 public class Robot extends TimedRobot {
   private CIA_DriveBase driveBase;

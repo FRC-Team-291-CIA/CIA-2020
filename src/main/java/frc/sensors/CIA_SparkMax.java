@@ -50,7 +50,7 @@ public class CIA_SparkMax extends PWMSpeedController {
       setSpeed(0.0);
       setZeroLatch();
 
-       HAL.report(tResourceType.kResourceType_RevSparkMaxPWM, getChannel());
+      HAL.report(tResourceType.kResourceType_RevSparkMaxPWM, getChannel());
 
       SendableRegistry.setName(this, "SparkMax", channel);
     }
