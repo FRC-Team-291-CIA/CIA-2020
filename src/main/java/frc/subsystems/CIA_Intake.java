@@ -18,9 +18,7 @@ public class CIA_Intake {
     public CIA_Intake(int newMotorPort, double newIntakePower, boolean newIsReversed){
         //Below creates the spark
         motor = new CIA_SparkMax(newMotorPort); //Creates the sparks
-
         intakePower = newIntakePower; //Takes in the power variable
-
         isReversed = newIsReversed; //Takes in if its reversed
     }
 
@@ -33,13 +31,8 @@ public class CIA_Intake {
 
     //Below is used to set the motor powers
     private void setMotors(double power){
-        if(isReversed){ //Checks to see if it is reversed
-            //Below sets the power to the motors
-            motor.set(-power); 
-        }else{ //Used if it is not reversed
-            //Below sets the power to the motors
-            motor.set(power); 
-        }
+        //Checks to see if it is reversed and determines motor direction
+        motor.set(isReversed ? -power : power);
     }
 
     //Below is used to take in the wanted state and set the intake to it
