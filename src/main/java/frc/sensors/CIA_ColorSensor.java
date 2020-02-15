@@ -5,6 +5,7 @@ import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 
+//TODO - Detect different colors
 public class CIA_ColorSensor {
     private ColorSensorV3 sensor;
     private I2C.Port i2CPort = I2C.Port.kOnboard;

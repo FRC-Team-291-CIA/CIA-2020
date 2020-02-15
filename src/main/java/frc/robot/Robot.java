@@ -19,12 +19,17 @@ import frc.subsystems.CIA_Dump.dumpState;
 import frc.subsystems.CIA_Climber;
 import frc.subsystems.CIA_Climber.climbState;
 
+import frc.subsystems.CIA_Control_Panel;
+
+import frc.sensors.CIA_Limelight;
+
 public class Robot extends TimedRobot {
   private CIA_DriveBase driveBase;
   private CIA_Intake intake;
   private CIA_Dump dump;
   private CIA_Climber climber;
   private Joystick driver, operator;
+  private CIA_Limelight camera;
 
   @Override
   public void robotInit() {
@@ -65,14 +70,21 @@ public class Robot extends TimedRobot {
     climber = new CIA_Climber(RobotMap.climberMotorLeftPort, RobotMap.climberMotorRightPort, 
     RobotMap.climberSolenoidForwardPort, RobotMap.climberSolenoidReversePort, Constants.climberPower, 
     Constants.climberRightReversed, Constants.climberAllReversed);
+
+    camera = new CIA_Limelight();
   }
 
   @Override
   public void robotPeriodic() {
+    //Below uses robot periodic to update it sensors and / or smartdashboard
     driveBase.update();
     intake.update();
     dump.update();
     climber.update();
+
+    //Below uses the update function to display the smartdashboard and to switch cameras
+    camera.update(driver.getRawButtonPressed(Controls.driverCameraSwitchButton) || 
+    operator.getRawButtonPressed(Controls.operatorCameraSwitchButton));
   }
 
   @Override
