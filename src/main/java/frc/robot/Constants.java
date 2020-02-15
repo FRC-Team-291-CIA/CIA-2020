@@ -12,7 +12,7 @@ public class Constants {
     public static final boolean driveAllReverse = false; //Reverses all motors.
 
     //Below is used for intake
-    public static final double intakePower = 0.5; //Power Used On The Intake
+    public static final double intakePower = 0.75; //Power Used On The Intake
     public static final boolean intakeIsReversed = false; //Boolean Used To Reverse It
 
     //Below is used for dump
