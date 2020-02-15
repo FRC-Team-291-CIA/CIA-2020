@@ -20,8 +20,7 @@ public class CIA_Climber {
         CLIMB, //state in which the climber is up and the winch is activated
         STORE, //state in which the climber is not active
         CURRENT_STATE //used to keep the climber in its current state
-    }
-    
+    }  
     /*
     Below is a constructor that takes in the following in order:
     The first motor, the second motor, the first and second double solenoid port, the motor speed,
@@ -53,8 +52,7 @@ public class CIA_Climber {
                 motorRight.setInverted(true);
             }
         }
-    }
-    
+    }   
     //Below is used to take in the wanted state and set the climber to it
     public void setClimbState(climbState wantedState){
         switch(wantedState){ //Checks to see which state it wants to use
@@ -89,7 +87,7 @@ public class CIA_Climber {
                 break;
         }
     }
-
+    
     public void update(){
         SmartDashboard.putString("Climber Current State", currentState);
     }
