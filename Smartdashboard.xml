@@ -1,12 +1,16 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Climber Current State" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1082" y="526"/>
+		<width>256</width>
+	</widget>
 	<widget field="Dump Current State:" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="1100" y="571"/>
-		<width>238</width>
+		<location x="1087" y="571"/>
+		<width>251</width>
 	</widget>
 	<widget field="Intake Current State:" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="1093" y="549"/>
-		<width>245</width>
+		<location x="1085" y="549"/>
+		<width>253</width>
 		<height>20</height>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.MjpgStreamViewerImpl">
@@ -64,36 +68,5 @@
 	</widget>
 </dashboard>
 <live-window>
-	<widget field="Ungrouped" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
-		<widget field="Spark[3]" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
-			<location x="6" y="16"/>
-			<height>45</height>
-			<width>297</width>
-		</widget>
-		<widget field="tSpeedControllerGroup[1]" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
-			<location x="6" y="61"/>
-			<height>45</height>
-			<width>297</width>
-		</widget>
-		<widget field="Spark[6]" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
-			<location x="6" y="106"/>
-			<height>45</height>
-			<width>297</width>
-		</widget>
-		<widget field="tSpeedControllerGroup[2]" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
-			<location x="6" y="151"/>
-			<height>45</height>
-			<width>297</width>
-		</widget>
-		<widget field="Spark[0]" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
-			<location x="6" y="196"/>
-			<height>45</height>
-			<width>297</width>
-		</widget>
-		<location x="0" y="0"/>
-		<width>309</width>
-		<height>247</height>
-	</widget>
 </live-window>
-	<hidden field="Current State:"/>
 </xml>
