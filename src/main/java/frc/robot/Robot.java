@@ -58,9 +58,9 @@ public class Robot extends TimedRobot {
     
     /*
     Below is a constructor that takes in the following:
-    First Solenoid Port, Second Solenoid Port, If it is reversed
+    First Solenoid Port, If it is reversed
     */
-    dump = new CIA_Dump(RobotMap.dumpSolenoidZeroPort, RobotMap.dumpSolenoidOnePort, Constants.dumpIsReversed);
+    dump = new CIA_Dump(RobotMap.dumpSolenoidZeroPort, Constants.dumpIsReversed);
 
     /*
     Below is a constructor that takes in the following in order:
@@ -148,7 +148,7 @@ public class Robot extends TimedRobot {
 
     } else if (operator.getRawButton(Controls.operatorClimberUp)){
 
-      climber.setClimbState(climbState.UP);
+      climber.setClimbState(climbState.RAISE_UP);
 
     } else if (operator.getRawButton(Controls.operatorClimberStore)){
 
@@ -168,6 +168,15 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
+    if (driver.getRawButton(Controls.driverClimberClimbZeroButton) && driver.getRawButton(Controls.driverClimberClimbOneButton)){
+      
+      climber.setClimbState(climbState.CLIMB);
+
+    } else {
+
+      climber.setClimbState(climbState.STORE);
+      
+    }
 
   }
 }

@@ -17,15 +17,14 @@ public class RobotMap {
 
     //Solenoids
         //Solenoid for Drive Base
-        public static final int shifterSolenoidPort = 0;  
+        public static final int shifterSolenoidPort = 1;  
         
         //Solenoid for Dump
-        public static final int dumpSolenoidZeroPort = 1;
-        public static final int dumpSolenoidOnePort = 2; 
+        public static final int dumpSolenoidZeroPort = 0;
 
         //Double Solenoid for Climber
-        public static final int climberSolenoidForwardPort = 3;
-        public static final int climberSolenoidReversePort = 4;
+        public static final int climberSolenoidForwardPort = 2;
+        public static final int climberSolenoidReversePort = 3;
 
     //Sensors
         //Encoders for the Drive Train

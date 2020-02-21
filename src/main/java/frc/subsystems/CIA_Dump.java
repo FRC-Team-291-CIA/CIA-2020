@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CIA_Dump {
-    private Solenoid pistonZero, pistonOne; //Creates the object names
+    private Solenoid piston; //Creates the object names
     private boolean isReversed; //Used if it needs reversed
     private String currentState = "Dump_State_Not_Set_Yet"; //Used for the smartdashboard
     private dumpState lastState;
@@ -21,10 +21,9 @@ public class CIA_Dump {
     First Solenoid Port, Second Solenoid Port, If it is reversed
     These values come from the Robot.java class
     */
-    public CIA_Dump(int newPistonPortZero, int newPistonPortOne, boolean newIsReversed){
+    public CIA_Dump(int newPistonPortZero, boolean newIsReversed){
         //Below creates the solenoids
-        pistonZero = new Solenoid(newPistonPortZero);
-        pistonOne = new Solenoid(newPistonPortOne);
+        piston = new Solenoid(newPistonPortZero);
 
         isReversed = newIsReversed; //Takes in if it is reversed
 
@@ -35,12 +34,10 @@ public class CIA_Dump {
     private void setPiston(boolean pistonValue){
         if(isReversed){ //Checks to see if its reversed
             //Below sets the solenoids to the value they need to be at
-            pistonZero.set(!pistonValue); 
-            pistonOne.set(!pistonValue);
+            piston.set(!pistonValue); 
         }else{ //Used if its not reversed
             //Below sets the solenoids to the value they need to be at
-            pistonZero.set(pistonValue);
-            pistonOne.set(pistonValue);
+            piston.set(pistonValue);
         }
     }
 
@@ -48,10 +45,12 @@ public class CIA_Dump {
     public void setDumpState(dumpState wantedState){
         switch(wantedState){ //Checks to see which state is the wanted state
             case OPEN: //Used if its wanted to be open
+                lastState = dumpState.OPEN;
                 currentState = "OPEN"; //Sets the data used in smartdashboard
                 this.setPiston(true); //Uses a method to set the piston state
                 break;
             case CLOSED: //Used if its wanted to be closed
+                lastState = dumpState.CLOSED;
                 currentState = "CLOSED"; //Sets the data used in smartdashboard
                 this.setPiston(false); //Uses a method to set the piston state
                 break;
