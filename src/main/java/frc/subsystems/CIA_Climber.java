@@ -17,9 +17,11 @@ public class CIA_Climber {
     
     //Below is the states that the climber can be in
     public static enum climbState {
-        UP, //Used to raise the climber
+        RAISE_UP, //Used to raise the climber
+        HOLD_UP, //Used to hold the climber up
         CLIMB, //Used to lower the climber and climb
         STORE, //Used to store the climber
+        WINCH_REVERSE, //Used to reverse the winch in the pits
         CURRENT_STATE //Used to keep it in the current state
     }
     
@@ -65,8 +67,8 @@ public class CIA_Climber {
     //Below is used to take in the wanted state and set the climber to it
     public void setClimbState(climbState wantedState){
         switch(wantedState){ //Checks to see which state it wants to use
-            case UP: //Used if its the climber is up
-                lastState = climbState.UP;
+            case RAISE_UP: //Used if its the climber is up
+                lastState = climbState.RAISE_UP;
                 hasGoneUp = true;
                 currentState = "UP"; //Sets the data that goes to smartdashboard
                 winch.set(0.00);
@@ -88,7 +90,6 @@ public class CIA_Climber {
                     piston.set(Value.kForward);
 
                 }
-
                 break;
             case STORE: //Used to store the climber
                 lastState = climbState.STORE;
@@ -102,16 +103,29 @@ public class CIA_Climber {
 
                     this.setClimbState(climbState.STORE);
 
-                } else if (lastState == climbState.UP){
+                } else if (lastState == climbState.RAISE_UP){
 
-                    this.setClimbState(climbState.UP);
+                    this.setClimbState(climbState.RAISE_UP);
 
                 } else {
 
-                    this.setClimbState(climbState.CLIMB);
+                    this.setClimbState(climbState.HOLD_UP);
 
                 }
-
+                break;
+            case HOLD_UP:
+                lastState = climbState.HOLD_UP;
+                currentState = "HOLD UP";
+                hasGoneUp = true;
+                winch.set(0.00);
+                piston.set(Value.kReverse);
+                break;
+            case WINCH_REVERSE:
+                lastState = climbState.STORE;
+                currentState = "WINCH_REVERSE";
+                hasGoneUp = false;
+                winch.set(0.25);
+                piston.set(Value.kForward);
                 break;
         }
     }
