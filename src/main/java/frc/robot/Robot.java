@@ -20,6 +20,7 @@ import frc.subsystems.CIA_Climber;
 import frc.subsystems.CIA_Climber.climbState;
 
 import frc.subsystems.CIA_Control_Panel;
+import frc.subsystems.CIA_Control_Panel.controlPanelState;
 
 import frc.sensors.CIA_Limelight;
 
@@ -163,6 +164,21 @@ public class Robot extends TimedRobot {
       climber.setClimbState(climbState.CURRENT_STATE);
 
     }
+
+    //Below is code for the control panel
+    if (operator.getRawButton(Controls.operatorPanelSpin)){
+
+      controlPanel.setControlState(controlPanelState.SPIN);
+
+    } else if (operator.getRawButton(Controls.operatorPanelColor)){
+
+      controlPanel.setControlState(controlPanelState.GO_TO_COLOR);
+
+    } else {
+
+      controlPanel.setControlState(controlPanelState.STOP);
+
+    }
   }
   
   @Override
@@ -181,6 +197,16 @@ public class Robot extends TimedRobot {
       climber.setClimbState(climbState.STORE);
       
     }
+
+  }
+
+  @Override
+  public void disabledInit() {
+
+  }
+
+  @Override
+  public void disabledPeriodic() {
 
   }
 }
