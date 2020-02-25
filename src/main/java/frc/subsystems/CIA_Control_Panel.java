@@ -11,6 +11,7 @@ import frc.sensors.CIA_ColorSensor;
 public class CIA_Control_Panel {
     String gameData;
     CIA_ColorSensor sensor;
+    CIA_SparkMax motor;
 
     //Below is the states that the control panel can be in
     public static enum controlPanelState {
@@ -26,6 +27,7 @@ public class CIA_Control_Panel {
     */
     public CIA_Control_Panel(int motorPort){
         sensor = new CIA_ColorSensor(); 
+        motor = new CIA_SparkMax(motorPort);
     }
     
     //Below is used to take in the wanted state and set the climber to it
