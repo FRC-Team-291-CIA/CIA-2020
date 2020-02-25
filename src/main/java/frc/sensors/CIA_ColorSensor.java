@@ -1,60 +1,66 @@
 package frc.sensors;
 
 import com.revrobotics.ColorSensorV3;
+import com.revrobotics.ColorMatchResult;
+import com.revrobotics.ColorMatch;
 
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 
-//TODO - Detect different colors
 public class CIA_ColorSensor {
     private ColorSensorV3 sensor;
     private I2C.Port i2CPort = I2C.Port.kOnboard;
-    private Color color;
-    private double sensitivity;
+    private Color blueTarget, greenTarget, redTarget, yellowTarget, detectedColor;
+    private ColorMatch colorMatcher;
+    private ColorMatchResult match;
+    private String colorString = "Not_Used";
 
-    public CIA_ColorSensor(double newSensitivity){
+    public CIA_ColorSensor(){
         sensor = new ColorSensorV3(i2CPort);
+        colorMatcher = new ColorMatch();
 
-        sensitivity = newSensitivity;
+        blueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
+        greenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
+        redTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
+        yellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
+
+        colorMatcher.addColorMatch(blueTarget);
+        colorMatcher.addColorMatch(greenTarget);
+        colorMatcher.addColorMatch(redTarget);
+        colorMatcher.addColorMatch(yellowTarget);   
     }
 
-    private void setColor(){
-        color = sensor.getColor();
+    public String getColor(){
+        this.detectColor();
+
+        return colorString;
     }
 
-    /*
-    The method below takes in the color from the sensors and converts it to an array of RGB where one is true
-    and zero is false which is used to read which color it is.
-    */
-    public void getCalculatedColor(){
-        this.setColor();
+    private void detectColor(){
+        detectedColor = sensor.getColor();
 
-        System.out.println("Red: " + color.red*255);
-        System.out.println("Green: " + color.green*255);
-        System.out.println("Blue: " + color.blue*255);
+        match = colorMatcher.matchClosestColor(detectedColor);
+    
+        if (match.color == blueTarget) {
+          colorString = "Blue";
+        } else if (match.color == redTarget) {
+          colorString = "Red";
+        } else if (match.color == greenTarget) {
+          colorString = "Green";
+        } else if (match.color == yellowTarget) {
+          colorString = "Yellow";
+        } else {
+          colorString = "Unknown";
+        }
     }
 
-    private boolean isYellow(double R, double G, double B){
-        return false;
-    }
-
-    private boolean isRed(double R, double G, double B){
-        return false;
-    }
-
-    private boolean isGreen(double R, double G, double B){
-        return false;
-    }
-
-    private boolean isCyan(double R, double G, double B){
-        return false;
-    }
+    public void update(){
+      this.detectColor();
+      SmartDashboard.putNumber("Red", detectedColor.red);
+      SmartDashboard.putNumber("Green", detectedColor.green);
+      SmartDashboard.putNumber("Blue", detectedColor.blue);
+      SmartDashboard.putNumber("Confidence", match.confidence);
+      SmartDashboard.putString("Detected Color", colorString);
+    }   
 }
-
-/*
-Below are CMYK Colors From The Game Manual to RGB Calculated:
-Blue-----(100, 0, 0, 0) ===== (0, 255, 255)
-Green----(100, 0, 100, 0) === (0, 255, 0)
-Red------(0, 100, 100, 0) === (255, 0, 0)
-Yellow---(0, 0, 100, 0) ===== (255, 255, 0)
-*/

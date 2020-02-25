@@ -13,6 +13,7 @@ public class CIA_DriveBase {
     private Solenoid shifter;
     private double lowSpeed, highSpeed, deadband, mathLeft, mathRight, overrideSpeed;
     private boolean inHighState = false;
+    private boolean override = false;
     private Encoder leftEncoder, rightEncoder;
 
     /*
@@ -79,10 +80,12 @@ public class CIA_DriveBase {
     .getRawButtonPressed(int button) method for joysticks. This is to prevent it from tripping
     multiple times
     */
-    public void arcadeDrive(double yAxis, double xAxis, boolean switchGears, boolean override){
+    public void arcadeDrive(double yAxis, double xAxis, boolean switchGears, boolean newOverride){
         if(switchGears){ //Checks to see if gears need to switch
             inHighState = !inHighState; //Switches States
         }
+
+        override = newOverride;
 
         this.updateGears(); //Updates the gears solenoid
 
@@ -127,5 +130,6 @@ public class CIA_DriveBase {
         SmartDashboard.putNumber("Left Drive Base", this.mathLeft); //Sends the left drive to the dashboard
         SmartDashboard.putNumber("Right Drive Base", this.mathRight); //Sends the right drive to the dashboard
         SmartDashboard.putBoolean("Is High Gear", this.inHighState); //Shows if its in high gear to the dashboard
+        SmartDashboard.putBoolean("Drive Is Unrestricted", this.override); //Shows if the driver took off the restriction
     }
 }

@@ -28,6 +28,7 @@ public class Robot extends TimedRobot {
   private CIA_Intake intake;
   private CIA_Dump dump;
   private CIA_Climber climber;
+  private CIA_Control_Panel controlPanel;
   private Joystick driver, operator;
   private CIA_Limelight camera;
 
@@ -71,6 +72,8 @@ public class Robot extends TimedRobot {
     RobotMap.climberSolenoidForwardPort, RobotMap.climberSolenoidReversePort, Constants.climberPower, 
     Constants.climberRightReversed, Constants.climberAllReversed);
 
+    controlPanel = new CIA_Control_Panel(RobotMap.controlPanelMotorPort);
+
     camera = new CIA_Limelight();
   }
 
@@ -81,6 +84,7 @@ public class Robot extends TimedRobot {
     intake.update();
     dump.update();
     climber.update();
+    controlPanel.update();
 
     //Below uses the update function to display the smartdashboard and to switch cameras
     camera.update(driver.getRawButtonPressed(Controls.driverCameraSwitchButton) || 
