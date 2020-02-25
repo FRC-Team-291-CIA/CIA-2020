@@ -96,8 +96,22 @@ public class CIA_Climber {
                 hasGoneUp = false;
                 currentState = "STORE"; //Sets the data that goes to smartdashboard
                 winch.set(0.00);
-                piston.set(Value.kForward);
-                break;    
+                piston.set(Value.kReverse);
+                break;
+            case HOLD_UP:
+                lastState = climbState.HOLD_UP;
+                currentState = "HOLD UP";
+                hasGoneUp = true;
+                winch.set(0.00);
+                piston.set(Value.kReverse);
+                break;
+            case WINCH_REVERSE:
+                lastState = climbState.STORE;
+                currentState = "WINCH_REVERSE";
+                hasGoneUp = false;
+                winch.set(0.25);
+                piston.set(Value.kReverse);
+                break;        
             case CURRENT_STATE: //Used to keep it in its current state
                 if (lastState == climbState.STORE){
 
@@ -112,20 +126,6 @@ public class CIA_Climber {
                     this.setClimbState(climbState.HOLD_UP);
 
                 }
-                break;
-            case HOLD_UP:
-                lastState = climbState.HOLD_UP;
-                currentState = "HOLD UP";
-                hasGoneUp = true;
-                winch.set(0.00);
-                piston.set(Value.kReverse);
-                break;
-            case WINCH_REVERSE:
-                lastState = climbState.STORE;
-                currentState = "WINCH_REVERSE";
-                hasGoneUp = false;
-                winch.set(0.25);
-                piston.set(Value.kForward);
                 break;
         }
     }
