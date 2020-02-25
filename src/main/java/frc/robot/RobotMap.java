@@ -15,6 +15,9 @@ public class RobotMap {
         public static final int climberMotorLeftPort = 3;
         public static final int climberMotorRightPort = 4;
 
+        //Motor for Control Panel
+        public static final int controlPanelMotorPort = 5;
+
     //Solenoids
         //Solenoid for Drive Base
         public static final int shifterSolenoidPort = 1;  
