@@ -19,5 +19,7 @@ public class Controls {
         public static final int operatorDumpCloseButton = 12; //Right Joystick Button
         public static final int operatorClimberStore = 5; //Left Top Bumper
         public static final int operatorClimberUp = 6; //Right Top Bumper
-        public static final int operatorCameraSwitchButton = 8; //TODO - Find Button
+        public static final int operatorCameraSwitchButton = 8; //Bottom Right Trigger
+        public static final int operatorPanelSpin = 11; //Left Joystick Button
+        public static final int operatorPanelColor = 12; //Right Joystick Button
 }
