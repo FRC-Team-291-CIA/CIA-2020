@@ -87,7 +87,7 @@ public class CIA_Climber {
 
                     currentState = "YOU NEED TO GO UP FIRST!"; //Sets the data that goes to smartdashboard
                     winch.set(0.00);
-                    piston.set(Value.kForward);
+                    piston.set(Value.kReverse);
 
                 }
                 break;
