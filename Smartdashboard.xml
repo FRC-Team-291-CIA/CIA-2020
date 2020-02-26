@@ -1,5 +1,31 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Detected Color" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="788" y="570"/>
+		<height>20</height>
+	</widget>
+	<widget field="Confidence" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="805" y="547"/>
+	</widget>
+	<widget field="Blue" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="836" y="522"/>
+	</widget>
+	<widget field="Green" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="824" y="497"/>
+	</widget>
+	<widget field="Red" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="831" y="474"/>
+	</widget>
+	<widget field="Drive Is Unrestricted" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="915" y="259"/>
+		<width>381</width>
+		<height>19</height>
+	</widget>
+	<widget field="Viewing Limelight: " type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="26" y="540"/>
+		<width>697</width>
+		<height>54</height>
+	</widget>
 	<widget field="Climber Current State" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="1082" y="526"/>
 		<width>256</width>

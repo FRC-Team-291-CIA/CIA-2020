@@ -11,6 +11,7 @@ import frc.sensors.CIA_ColorSensor;
 public class CIA_Control_Panel {
     String gameData;
     CIA_ColorSensor sensor;
+    CIA_SparkMax motor;
 
     //Below is the states that the control panel can be in
     public static enum controlPanelState {
@@ -21,15 +22,16 @@ public class CIA_Control_Panel {
     
     /*
     Below is a constructor that takes in the following in order:
-
+    The Motor Port
     These values come from the robot.java class
     */
     public CIA_Control_Panel(int motorPort){
         sensor = new CIA_ColorSensor(); 
+        motor = new CIA_SparkMax(motorPort);
     }
     
     //Below is used to take in the wanted state and set the climber to it
-    public void setClimbState(controlPanelState wantedState){
+    public void setControlState(controlPanelState wantedState){
         switch(wantedState){ //Checks to see which state it wants to use
             case GO_TO_COLOR:
                 gameData = DriverStation.getInstance().getGameSpecificMessage();
@@ -56,10 +58,10 @@ public class CIA_Control_Panel {
                     break;
                 }
             case SPIN:
-
+                motor.set(0.5);
                 break;
             case STOP:
-
+                motor.set(0.0);
                 break;
         }
     }
