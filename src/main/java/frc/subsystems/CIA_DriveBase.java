@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 
 import frc.sensors.CIA_SparkMax; //Our own SparkMax Code
+import frc.sensors.CIA_Gyro;
 
 public class CIA_DriveBase {
     private CIA_SparkMax motorZero, motorOne;
@@ -15,6 +16,7 @@ public class CIA_DriveBase {
     private boolean inHighState = false;
     private boolean override = false;
     private Encoder leftEncoder, rightEncoder;
+    private CIA_Gyro gyro;
 
     /*
     Below is a constructor that takes in the following in order:
@@ -50,6 +52,8 @@ public class CIA_DriveBase {
         highSpeed = newHighSpeed; //Takes in the high speed variable
 
         overrideSpeed = newOverrideSpeed; //Takes in the override speed variable
+
+        gyro = new CIA_Gyro();
     }
 
     private void setInvertedGroups(boolean isRightReversed, boolean isAllReversed){
@@ -127,6 +131,7 @@ public class CIA_DriveBase {
     }
 
     public void update(){
+        gyro.update();
         SmartDashboard.putNumber("Left Drive Base", this.mathLeft); //Sends the left drive to the dashboard
         SmartDashboard.putNumber("Right Drive Base", this.mathRight); //Sends the right drive to the dashboard
         SmartDashboard.putBoolean("Is High Gear", this.inHighState); //Shows if its in high gear to the dashboard
