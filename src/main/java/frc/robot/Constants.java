@@ -9,7 +9,7 @@ public class Constants {
     public static final double driveHighSpeed = 0.4; //Speed used if in high speed.
     public static final double driveOverride = 0.8; //Speed used if the override is used.
     public static final boolean driveRightReverse = true; //Reverses the right side motors.
-    public static final boolean driveAllReverse = false; //Reverses all motors.
+    public static final boolean driveAllReverse = true; //Reverses all motors.
 
     //Below is used for intake
     public static final double intakePower = 0.75; //Power Used On The Intake

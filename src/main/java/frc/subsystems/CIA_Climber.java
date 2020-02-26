@@ -21,7 +21,7 @@ public class CIA_Climber {
         HOLD_UP, //Used to hold the climber up
         CLIMB, //Used to lower the climber and climb
         STORE, //Used to store the climber
-        WINCH_REVERSE, //Used to reverse the winch in the pits
+        WINCH_ONLY, //Used to reverse the winch in the pits
         CURRENT_STATE //Used to keep it in the current state
     }
     
@@ -105,11 +105,11 @@ public class CIA_Climber {
                 winch.set(0.00);
                 piston.set(Value.kReverse);
                 break;
-            case WINCH_REVERSE:
+            case WINCH_ONLY:
                 lastState = climbState.STORE;
                 currentState = "WINCH_REVERSE";
                 hasGoneUp = false;
-                winch.set(0.25);
+                winch.set(-0.25);
                 piston.set(Value.kReverse);
                 break;        
             case CURRENT_STATE: //Used to keep it in its current state

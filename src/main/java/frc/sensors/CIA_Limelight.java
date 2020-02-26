@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.*;
 
 public class CIA_Limelight{
     NetworkTable table;
-    NetworkTableEntry getpipe; //Creating the entries for the table
+    //NetworkTableEntry getpipe; //Creating the entries for the table
     boolean limelightView = true; //Creates boolean for switching cameras
 
     public CIA_Limelight(){

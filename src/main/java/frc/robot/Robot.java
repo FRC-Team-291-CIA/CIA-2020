@@ -190,7 +190,7 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
     if (driver.getRawButton(Controls.driverClimberClimbZeroButton) && driver.getRawButton(Controls.driverClimberClimbOneButton)){
       
-      climber.setClimbState(climbState.CLIMB);
+      climber.setClimbState(climbState.WINCH_ONLY);
 
     } else {
 
