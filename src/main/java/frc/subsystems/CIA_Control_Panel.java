@@ -10,7 +10,7 @@ import frc.sensors.CIA_ColorSensor;
 //TODO - Create the control panel class
 public class CIA_Control_Panel {
     String gameData;
-    String currentState = "NOT_SET_YET";
+    String currentState = "CONTROL_STATE_NOT_SET";
     CIA_ColorSensor sensor;
     CIA_SparkMax motor;
 
@@ -72,6 +72,6 @@ public class CIA_Control_Panel {
 
     public void update(){
         sensor.update();
-        SmartDashboard.putString("State: ", currentState);
+        SmartDashboard.putString("Control Panel State: ", currentState);
     }
 }
