@@ -16,7 +16,7 @@ public class Controls {
     //Operator - Must be in "D" mode
         public static final int operatorBallIntakeButton = 2; //Green "A"
         public static final int operatorBallOuttakeButton = 3; //Red "B"
-        public static final int operatorDumpCloseButton = 12; //Right Joystick Button
+        public static final int operatorDumpCloseButton = 7; //Bottom Left Bumper
         public static final int operatorClimberStore = 5; //Left Top Bumper
         public static final int operatorClimberUp = 6; //Right Top Bumper
         public static final int operatorCameraSwitchButton = 8; //Bottom Right Trigger

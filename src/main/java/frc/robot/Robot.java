@@ -109,14 +109,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    /*
-    Below is the drive train running in arcade drive
-    The method takes in the following in order:
-    Y Axis, X Axis, Switch Gears, Override
-    */
-    driveBase.arcadeDrive(driver.getRawAxis(Controls.driverYAxis), driver.getRawAxis(Controls.driverXAxis), 
-    driver.getRawButtonPressed(Controls.driverShifterButton), driver.getRawButton(Controls.driverDriveOverrideButton));
-
     //Below is used to set the intake up
     if(operator.getRawButton(Controls.operatorBallIntakeButton)){
 
@@ -179,6 +171,14 @@ public class Robot extends TimedRobot {
       controlPanel.setControlState(controlPanelState.STOP);
 
     }
+
+        /*
+    Below is the drive train running in arcade drive
+    The method takes in the following in order:
+    Y Axis, X Axis, Switch Gears, Override
+    */
+    driveBase.arcadeDrive(driver.getRawAxis(Controls.driverYAxis), driver.getRawAxis(Controls.driverXAxis), 
+    driver.getRawButtonPressed(Controls.driverShifterButton), driver.getRawButton(Controls.driverDriveOverrideButton));
   }
   
   @Override

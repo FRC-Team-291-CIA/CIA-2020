@@ -1,14 +1,12 @@
 package frc.sensors;
 
 import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 import edu.wpi.first.wpilibj.smartdashboard.*;
 
 public class CIA_Limelight{
     NetworkTable table;
-    //NetworkTableEntry getpipe; //Creating the entries for the table
     boolean limelightView = true; //Creates boolean for switching cameras
 
     public CIA_Limelight(){

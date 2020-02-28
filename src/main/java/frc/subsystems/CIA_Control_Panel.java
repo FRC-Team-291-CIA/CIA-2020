@@ -10,6 +10,7 @@ import frc.sensors.CIA_ColorSensor;
 //TODO - Create the control panel class
 public class CIA_Control_Panel {
     String gameData;
+    String currentState = "NOT_SET_YET";
     CIA_ColorSensor sensor;
     CIA_SparkMax motor;
 
@@ -34,6 +35,7 @@ public class CIA_Control_Panel {
     public void setControlState(controlPanelState wantedState){
         switch(wantedState){ //Checks to see which state it wants to use
             case GO_TO_COLOR:
+                currentState = "GO_TO_COLOR";
                 gameData = DriverStation.getInstance().getGameSpecificMessage();
                 if(gameData.length() > 0) {
                     switch (gameData.charAt(0)){
@@ -58,9 +60,11 @@ public class CIA_Control_Panel {
                     break;
                 }
             case SPIN:
+                currentState = "SPIN";
                 motor.set(0.5);
                 break;
             case STOP:
+                currentState = "STOP";
                 motor.set(0.0);
                 break;
         }
@@ -68,5 +72,6 @@ public class CIA_Control_Panel {
 
     public void update(){
         sensor.update();
+        SmartDashboard.putString("State: ", currentState);
     }
 }

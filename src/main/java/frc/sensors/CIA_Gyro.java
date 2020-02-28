@@ -4,7 +4,6 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.SPI;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CIA_Gyro{
@@ -18,6 +17,6 @@ public class CIA_Gyro{
 
     public void update(){
         SmartDashboard.putBoolean("Gyro Is Connected", ahrs.isConnected());
-        SmartDashboard.putNumber("Heading:", ahrs.getAngle());
+        SmartDashboard.putNumber("Heading:", ahrs.getCompassHeading());
     }
 }
