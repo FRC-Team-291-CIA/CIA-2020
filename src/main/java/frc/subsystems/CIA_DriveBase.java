@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 
+import frc.subsystems.Subsystem_Variables;
+
 import frc.sensors.CIA_SparkMax; //Our own SparkMax Code
 import frc.sensors.CIA_Gyro;
 
@@ -73,9 +75,9 @@ public class CIA_DriveBase {
     //Used to set the state of the gears
     private void updateGears(){
         if(inHighState){
-            shifter.set(true);
-        } else {
             shifter.set(false);
+        } else {
+            shifter.set(true);
         }
     }
 
@@ -89,9 +91,13 @@ public class CIA_DriveBase {
             inHighState = !inHighState; //Switches States
         }
 
-        override = newOverride;
+        if(Subsystem_Variables.isOnlyLowGear){
+            inHighState = false;
+        }
 
         this.updateGears(); //Updates the gears solenoid
+
+        override = newOverride;
 
 	    mathLeft = yAxis - xAxis; //Calculates the math for the left side
         mathRight = yAxis + xAxis; //Calculates the math for the right side

@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
+import frc.subsystems.Subsystem_Variables;
+
 public class CIA_Climber {
     private Spark motorLeft, motorRight;
     private SpeedControllerGroup winch;
@@ -69,6 +71,7 @@ public class CIA_Climber {
         switch(wantedState){ //Checks to see which state it wants to use
             case RAISE_UP: //Used if its the climber is up
                 lastState = climbState.RAISE_UP;
+                Subsystem_Variables.isOnlyLowGear = true;
                 hasGoneUp = true;
                 currentState = "UP"; //Sets the data that goes to smartdashboard
                 winch.set(0.00);
@@ -82,18 +85,21 @@ public class CIA_Climber {
                     currentState = "CLIMB"; //Sets the data that goes to smartdashboard
                     winch.set(this.motorSpeed);
                     piston.set(Value.kReverse);
+                    Subsystem_Variables.isOnlyLowGear = true;
 
                 } else {
 
                     currentState = "YOU NEED TO GO UP FIRST!"; //Sets the data that goes to smartdashboard
                     winch.set(0.00);
                     piston.set(Value.kReverse);
+                    Subsystem_Variables.isOnlyLowGear = false;
 
                 }
                 break;
             case STORE: //Used to store the climber
                 lastState = climbState.STORE;
                 hasGoneUp = false;
+                Subsystem_Variables.isOnlyLowGear = false;
                 currentState = "STORE"; //Sets the data that goes to smartdashboard
                 winch.set(0.00);
                 piston.set(Value.kReverse);
@@ -101,6 +107,7 @@ public class CIA_Climber {
             case HOLD_UP:
                 lastState = climbState.HOLD_UP;
                 currentState = "HOLD UP";
+                Subsystem_Variables.isOnlyLowGear = true;
                 hasGoneUp = true;
                 winch.set(0.00);
                 piston.set(Value.kReverse);
@@ -108,6 +115,7 @@ public class CIA_Climber {
             case WINCH_ONLY:
                 lastState = climbState.STORE;
                 currentState = "WINCH_REVERSE";
+                Subsystem_Variables.isOnlyLowGear = false;
                 hasGoneUp = false;
                 winch.set(-0.25);
                 piston.set(Value.kReverse);

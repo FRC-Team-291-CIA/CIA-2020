@@ -5,7 +5,7 @@ public class Constants {
 
     //Below is used for Drive Base
     public static final double driveDeadband = 0.02; //If joysticks are equal or lower than this the motors dont move.
-    public static final double driveLowSpeed = 0.3; //Speed used if in low speed.
+    public static final double driveLowSpeed = 0.15; //Speed used if in low speed.
     public static final double driveHighSpeed = 0.4; //Speed used if in high speed.
     public static final double driveOverride = 0.8; //Speed used if the override is used.
     public static final boolean driveRightReverse = true; //Reverses the right side motors.
