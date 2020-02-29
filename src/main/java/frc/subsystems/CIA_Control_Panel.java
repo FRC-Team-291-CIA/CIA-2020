@@ -4,15 +4,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation;
 
 import frc.sensors.CIA_SparkMax;
-
 import frc.sensors.CIA_ColorSensor;
 
-//TODO - Create the control panel class
 public class CIA_Control_Panel {
     String gameData;
     String currentState = "CONTROL_STATE_NOT_SET";
     CIA_ColorSensor sensor;
     CIA_SparkMax motor;
+    boolean spinNotComplete = false;
+    boolean isOnGreen = false;
+    boolean alreadyOnGreen = false;
+    double motorSpeed;
+    double counter = 0;
+    boolean error = false;
 
     //Below is the states that the control panel can be in
     public static enum controlPanelState {
@@ -26,9 +30,10 @@ public class CIA_Control_Panel {
     The Motor Port
     These values come from the robot.java class
     */
-    public CIA_Control_Panel(int motorPort){
+    public CIA_Control_Panel(int motorPort, double newMotorSpeed){
         sensor = new CIA_ColorSensor(); 
         motor = new CIA_SparkMax(motorPort);
+        motorSpeed = newMotorSpeed;
     }
     
     //Below is used to take in the wanted state and set the climber to it
@@ -39,16 +44,16 @@ public class CIA_Control_Panel {
                 gameData = DriverStation.getInstance().getGameSpecificMessage();
                 if(gameData.length() > 0) {
                     switch (gameData.charAt(0)){
-                        case 'B' :
+                        case 'B':
                             //Blue case code
                             break;
-                        case 'G' :
+                        case 'G':
                             //Green case code
                             break;
-                        case 'R' :
+                        case 'R':
                             //Red case code
                             break;
-                        case 'Y' :
+                        case 'Y':
                             //Yellow case code
                             break;
                         default :
@@ -60,11 +65,42 @@ public class CIA_Control_Panel {
                     break;
                 }
             case SPIN:
-                currentState = "SPIN";
-                motor.set(0.5);
+                currentState = "SPIN"; //Shows the current state
+                while(spinNotComplete){ //Checks if the spin is done
+
+                    //Below checks to see if the sensor is detecting the color green
+                    if(sensor.getColor().equals("Green")){
+                        isOnGreen = true;
+                    } else if (sensor.getColor() == null) {
+                        error = true;
+                    } else {
+                        isOnGreen = false;
+                    }
+                    
+                    if(!error){
+                        //Below is an if statement that checks to see where the color sensor is
+                        if (isOnGreen && !alreadyOnGreen){
+                            motor.set(motorSpeed);
+                            counter++;
+                            alreadyOnGreen = true;
+                        } else if (isOnGreen && alreadyOnGreen){
+                            motor.set(motorSpeed);
+                        } else if(counter >= 8){
+                            motor.set(0.00);
+                            spinNotComplete = false;
+                        } else {
+                            motor.set(motorSpeed);
+                            alreadyOnGreen = false;
+                    } 
+                    } else {
+                        System.out.println("ERROR WITH CONTROL PANEL!!!");
+                    }   
+                }
                 break;
             case STOP:
                 currentState = "STOP";
+                spinNotComplete = false;
+                error = false;
                 motor.set(0.0);
                 break;
         }

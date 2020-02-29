@@ -22,4 +22,7 @@ public class Constants {
     public static final double climberPower = 0.5; //Used for the climber power
     public static final boolean climberRightReversed = true; //Used for reversing right side of climber
     public static final boolean climberAllReversed = false; //Used for reversing the entire climber
+
+    //Below is used for the control panel
+    public static final double controlPanelMotorSpeed = 0.5;
 }
