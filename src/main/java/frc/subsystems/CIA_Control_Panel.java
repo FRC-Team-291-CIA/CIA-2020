@@ -66,6 +66,8 @@ public class CIA_Control_Panel {
                 }
             case SPIN:
                 currentState = "SPIN"; //Shows the current state
+                motor.set(0.4); // Temporary
+                /*
                 while(spinNotComplete){ //Checks if the spin is done
 
                     //Below checks to see if the sensor is detecting the color green
@@ -96,6 +98,7 @@ public class CIA_Control_Panel {
                         System.out.println("ERROR WITH CONTROL PANEL!!!");
                     }   
                 }
+                */
                 break;
             case STOP:
                 currentState = "STOP";
