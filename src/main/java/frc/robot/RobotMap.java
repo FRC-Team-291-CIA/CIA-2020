@@ -15,22 +15,24 @@ public class RobotMap {
         public static final int climberMotorLeftPort = 3;
         public static final int climberMotorRightPort = 4;
 
+        //Motor for Control Panel
+        public static final int controlPanelMotorPort = 5;
+
     //Solenoids
         //Solenoid for Drive Base
-        public static final int shifterSolenoidPort = 0;  
+        public static final int shifterSolenoidPort = 1;  
         
         //Solenoid for Dump
-        public static final int dumpSolenoidZeroPort = 1;
-        public static final int dumpSolenoidOnePort = 2; 
+        public static final int dumpSolenoidZeroPort = 0;
 
         //Double Solenoid for Climber
-        public static final int climberSolenoidForwardPort = 3;
-        public static final int climberSolenoidReversePort = 4;
+        public static final int climberSolenoidForwardPort = 2;
+        public static final int climberSolenoidReversePort = 3;
 
     //Sensors
         //Encoders for the Drive Train
-        public static final int leftEncoderZeroPort = 0;
-        public static final int leftEncoderOnePort = 1;
-        public static final int rightEncoderZeroPort = 2;
-        public static final int rightEncoderOnePort = 3;
+        public static final int leftEncoderZeroPort = 6;
+        public static final int leftEncoderOnePort = 7;
+        public static final int rightEncoderZeroPort = 8;
+        public static final int rightEncoderOnePort = 9;
 }

@@ -5,7 +5,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 
+import frc.subsystems.Subsystem_Variables;
+
 import frc.sensors.CIA_SparkMax; //Our own SparkMax Code
+import frc.sensors.CIA_Gyro;
 
 public class CIA_DriveBase {
     private CIA_SparkMax motorZero, motorOne;
@@ -13,7 +16,9 @@ public class CIA_DriveBase {
     private Solenoid shifter;
     private double lowSpeed, highSpeed, deadband, mathLeft, mathRight, overrideSpeed;
     private boolean inHighState = false;
+    private boolean override = false;
     private Encoder leftEncoder, rightEncoder;
+    private CIA_Gyro gyro;
 
     /*
     Below is a constructor that takes in the following in order:
@@ -49,6 +54,8 @@ public class CIA_DriveBase {
         highSpeed = newHighSpeed; //Takes in the high speed variable
 
         overrideSpeed = newOverrideSpeed; //Takes in the override speed variable
+
+        gyro = new CIA_Gyro();
     }
 
     private void setInvertedGroups(boolean isRightReversed, boolean isAllReversed){
@@ -68,9 +75,9 @@ public class CIA_DriveBase {
     //Used to set the state of the gears
     private void updateGears(){
         if(inHighState){
-            shifter.set(true);
-        } else {
             shifter.set(false);
+        } else {
+            shifter.set(true);
         }
     }
 
@@ -79,12 +86,18 @@ public class CIA_DriveBase {
     .getRawButtonPressed(int button) method for joysticks. This is to prevent it from tripping
     multiple times
     */
-    public void arcadeDrive(double yAxis, double xAxis, boolean switchGears, boolean override){
+    public void arcadeDrive(double yAxis, double xAxis, boolean switchGears, boolean newOverride){
         if(switchGears){ //Checks to see if gears need to switch
             inHighState = !inHighState; //Switches States
         }
 
+        if(Subsystem_Variables.isOnlyLowGear){
+            inHighState = false;
+        }
+
         this.updateGears(); //Updates the gears solenoid
+
+        override = newOverride;
 
 	    mathLeft = yAxis - xAxis; //Calculates the math for the left side
         mathRight = yAxis + xAxis; //Calculates the math for the right side
@@ -124,8 +137,10 @@ public class CIA_DriveBase {
     }
 
     public void update(){
+        gyro.update();
         SmartDashboard.putNumber("Left Drive Base", this.mathLeft); //Sends the left drive to the dashboard
         SmartDashboard.putNumber("Right Drive Base", this.mathRight); //Sends the right drive to the dashboard
         SmartDashboard.putBoolean("Is High Gear", this.inHighState); //Shows if its in high gear to the dashboard
+        SmartDashboard.putBoolean("Drive Is Unrestricted", this.override); //Shows if the driver took off the restriction
     }
 }

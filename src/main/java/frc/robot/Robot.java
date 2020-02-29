@@ -1,10 +1,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+
+import frc.robot.RobotMap;
+import frc.robot.Constants;
+import frc.robot.Controls;
 
 import frc.subsystems.CIA_DriveBase;
 
@@ -17,13 +19,19 @@ import frc.subsystems.CIA_Dump.dumpState;
 import frc.subsystems.CIA_Climber;
 import frc.subsystems.CIA_Climber.climbState;
 
+import frc.subsystems.CIA_Control_Panel;
+import frc.subsystems.CIA_Control_Panel.controlPanelState;
+
+import frc.sensors.CIA_Limelight;
 
 public class Robot extends TimedRobot {
   private CIA_DriveBase driveBase;
   private CIA_Intake intake;
   private CIA_Dump dump;
   private CIA_Climber climber;
+  private CIA_Control_Panel controlPanel;
   private Joystick driver, operator;
+  private CIA_Limelight camera;
 
   @Override
   public void robotInit() {
@@ -52,9 +60,9 @@ public class Robot extends TimedRobot {
     
     /*
     Below is a constructor that takes in the following:
-    First Solenoid Port, Second Solenoid Port, If it is reversed
+    First Solenoid Port, If it is reversed
     */
-    dump = new CIA_Dump(RobotMap.dumpSolenoidZeroPort, RobotMap.dumpSolenoidOnePort, Constants.dumpIsReversed);
+    dump = new CIA_Dump(RobotMap.dumpSolenoidZeroPort, Constants.dumpIsReversed);
 
     /*
     Below is a constructor that takes in the following in order:
@@ -64,14 +72,24 @@ public class Robot extends TimedRobot {
     climber = new CIA_Climber(RobotMap.climberMotorLeftPort, RobotMap.climberMotorRightPort, 
     RobotMap.climberSolenoidForwardPort, RobotMap.climberSolenoidReversePort, Constants.climberPower, 
     Constants.climberRightReversed, Constants.climberAllReversed);
+
+    controlPanel = new CIA_Control_Panel(RobotMap.controlPanelMotorPort, Constants.controlPanelMotorSpeed);
+
+    camera = new CIA_Limelight();
   }
 
   @Override
   public void robotPeriodic() {
+    //Below uses robot periodic to update it sensors and / or smartdashboard
     driveBase.update();
     intake.update();
     dump.update();
     climber.update();
+    controlPanel.update();
+
+    //Below uses the update function to display the smartdashboard and to switch cameras
+    camera.update(driver.getRawButtonPressed(Controls.driverCameraSwitchButton) || 
+    operator.getRawButtonPressed(Controls.operatorCameraSwitchButton));
   }
 
   @Override
@@ -91,14 +109,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    /*
-    Below is the drive train running in arcade drive
-    The method takes in the following in order:
-    Y Axis, X Axis, Switch Gears, Override
-    */
-    driveBase.arcadeDrive(driver.getRawAxis(Controls.driverYAxis), driver.getRawAxis(Controls.driverXAxis), 
-    driver.getRawButtonPressed(Controls.driverShifterButton), driver.getRawButton(Controls.driverDriveOverrideButton));
-
     //Below is used to set the intake up
     if(operator.getRawButton(Controls.operatorBallIntakeButton)){
 
@@ -135,7 +145,7 @@ public class Robot extends TimedRobot {
 
     } else if (operator.getRawButton(Controls.operatorClimberUp)){
 
-      climber.setClimbState(climbState.UP);
+      climber.setClimbState(climbState.RAISE_UP);
 
     } else if (operator.getRawButton(Controls.operatorClimberStore)){
 
@@ -146,6 +156,29 @@ public class Robot extends TimedRobot {
       climber.setClimbState(climbState.CURRENT_STATE);
 
     }
+
+    //Below is code for the control panel
+    if (operator.getRawButton(Controls.operatorPanelSpin)){
+
+      controlPanel.setControlState(controlPanelState.SPIN);
+
+    } else if (operator.getRawButton(Controls.operatorPanelColor)){
+
+      controlPanel.setControlState(controlPanelState.GO_TO_COLOR);
+
+    } else {
+
+      controlPanel.setControlState(controlPanelState.STOP);
+
+    }
+
+        /*
+    Below is the drive train running in arcade drive
+    The method takes in the following in order:
+    Y Axis, X Axis, Switch Gears, Override
+    */
+    driveBase.arcadeDrive(driver.getRawAxis(Controls.driverYAxis), driver.getRawAxis(Controls.driverXAxis), 
+    driver.getRawButtonPressed(Controls.driverShifterButton), driver.getRawButton(Controls.driverDriveOverrideButton));
   }
   
   @Override
@@ -155,6 +188,25 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
+    if (driver.getRawButton(Controls.driverClimberClimbZeroButton) && driver.getRawButton(Controls.driverClimberClimbOneButton)){
+      
+      climber.setClimbState(climbState.WINCH_ONLY);
+
+    } else {
+
+      climber.setClimbState(climbState.STORE);
+      
+    }
+
+  }
+
+  @Override
+  public void disabledInit() {
+
+  }
+
+  @Override
+  public void disabledPeriodic() {
 
   }
 }
