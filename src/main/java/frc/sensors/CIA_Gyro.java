@@ -17,6 +17,6 @@ public class CIA_Gyro{
 
     public void update(){
         SmartDashboard.putBoolean("Gyro Is Connected", ahrs.isConnected());
-        SmartDashboard.putNumber("Heading:", ahrs.getCompassHeading());
+        SmartDashboard.putNumber("Heading:", ahrs.getAngle());
     }
 }

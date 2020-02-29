@@ -31,8 +31,8 @@ public class RobotMap {
 
     //Sensors
         //Encoders for the Drive Train
-        public static final int leftEncoderZeroPort = 0;
-        public static final int leftEncoderOnePort = 1;
-        public static final int rightEncoderZeroPort = 2;
-        public static final int rightEncoderOnePort = 3;
+        public static final int leftEncoderZeroPort = 6;
+        public static final int leftEncoderOnePort = 7;
+        public static final int rightEncoderZeroPort = 8;
+        public static final int rightEncoderOnePort = 9;
 }

@@ -1,5 +1,17 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="limelight_Interface" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="738" y="382"/>
+		<width>219</width>
+	</widget>
+	<widget field="limelight_Stream" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="749" y="331"/>
+		<width>204</width>
+	</widget>
+	<widget field="limelight_PipelineName" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="719" y="354"/>
+		<width>236</width>
+	</widget>
 	<widget field="Control Panel State: " type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="1087" y="502"/>
 		<width>249</width>
@@ -107,5 +119,4 @@
 </dashboard>
 <live-window>
 </live-window>
-	<hidden field="State: "/>
 </xml>

@@ -73,7 +73,7 @@ public class Robot extends TimedRobot {
     RobotMap.climberSolenoidForwardPort, RobotMap.climberSolenoidReversePort, Constants.climberPower, 
     Constants.climberRightReversed, Constants.climberAllReversed);
 
-    controlPanel = new CIA_Control_Panel(RobotMap.controlPanelMotorPort);
+    controlPanel = new CIA_Control_Panel(RobotMap.controlPanelMotorPort, Constants.controlPanelMotorSpeed);
 
     camera = new CIA_Limelight();
   }

@@ -32,8 +32,6 @@ public class CIA_ColorSensor {
     }
 
     public String getColor(){
-        this.detectColor();
-
         return colorString;
     }
 
