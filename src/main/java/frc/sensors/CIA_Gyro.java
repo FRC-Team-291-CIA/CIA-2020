@@ -7,7 +7,9 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CIA_Gyro{
-    AHRS ahrs;
+    private AHRS ahrs;
+    private double tilt, heading;
+    
 
     public CIA_Gyro(){
 
@@ -15,8 +17,19 @@ public class CIA_Gyro{
 
     }
 
+    public double getTilt(){
+        return tilt;
+    }
+
+    public double getHeading(){
+        return heading;
+    }
+
     public void update(){
+        tilt = ahrs.getRoll();
+        heading = ahrs.getPitch();
         SmartDashboard.putBoolean("Gyro Is Connected", ahrs.isConnected());
-        SmartDashboard.putNumber("Heading:", ahrs.getAngle());
+        SmartDashboard.putNumber("Tilt", tilt);
+        SmartDashboard.putNumber("Heading", heading);
     }
 }
