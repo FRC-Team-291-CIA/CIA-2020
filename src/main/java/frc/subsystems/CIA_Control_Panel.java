@@ -11,7 +11,7 @@ public class CIA_Control_Panel {
     String currentState = "CONTROL_STATE_NOT_SET";
     CIA_ColorSensor sensor;
     CIA_SparkMax motor;
-    boolean spinNotComplete = false;
+    boolean spinNotComplete = true;
     boolean isOnGreen = false;
     boolean alreadyOnGreen = false;
     double motorSpeed;
@@ -66,7 +66,11 @@ public class CIA_Control_Panel {
                 }
             case SPIN:
                 currentState = "SPIN"; //Shows the current state
+                //motor.set(0.4); // Temporary
+                
                 while(spinNotComplete){ //Checks if the spin is done
+                    error = false;
+                    alreadyOnGreen = false;
 
                     //Below checks to see if the sensor is detecting the color green
                     if(sensor.getColor().equals("Green")){
@@ -93,9 +97,10 @@ public class CIA_Control_Panel {
                             alreadyOnGreen = false;
                     } 
                     } else {
-                        System.out.println("ERROR WITH CONTROL PANEL!!!");
+                       // System.out.println("ERROR WITH CONTROL PANEL!!!");
                     }   
                 }
+                
                 break;
             case STOP:
                 currentState = "STOP";

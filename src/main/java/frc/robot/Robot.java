@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.Joystick;
 
+import edu.wpi.first.cameraserver.CameraServer;
+
 import frc.robot.RobotMap;
 import frc.robot.Constants;
 import frc.robot.Controls;
@@ -44,19 +46,21 @@ public class Robot extends TimedRobot {
     /*
     Below is a constructor that takes in the following in order:
     Left Motor Port, Right Motor Port, Shifter Solenoid Port, Left Encoder Ports, Right Encoder Ports,
-    The Deadband, The Low Speed, The High, The Override Speed, Right Side Reverse, All Sides reversed
+    The Deadband, The Low Speed, The High, The Override Speed, Right Side Reverse, All Sides Reversed
+    The max tilt angle, The tilt angle correct speed
     */
     driveBase = new CIA_DriveBase(RobotMap.leftDriveMotorsPort, RobotMap.rightDriveMotorsPort, 
     RobotMap.shifterSolenoidPort, RobotMap.leftEncoderZeroPort, RobotMap.leftEncoderOnePort, 
     RobotMap.rightEncoderZeroPort, RobotMap.rightEncoderOnePort ,Constants.driveDeadband, 
     Constants.driveLowSpeed, Constants.driveHighSpeed, Constants.driveOverride, 
-    Constants.driveRightReverse, Constants.driveAllReverse);
+    Constants.driveRightReverse, Constants.driveAllReverse, Constants.driveMaxAngle, 
+    Constants.driveTiltSpeedCorrect);
 
     /*
     Below is a constructor that takes in the following in order: 
     The first motor port, The second motor port, The Power of Motors, If it is reversed
     */
-    intake = new CIA_Intake(RobotMap.intakeMotorPort, Constants.intakePower, Constants.intakeIsReversed);
+    intake = new CIA_Intake(RobotMap.intakeMotorPort, Constants.intakePower, Constants.outtakePower, Constants.intakeIsReversed);
     
     /*
     Below is a constructor that takes in the following:
@@ -165,6 +169,10 @@ public class Robot extends TimedRobot {
     } else if (operator.getRawButton(Controls.operatorPanelColor)){
 
       controlPanel.setControlState(controlPanelState.GO_TO_COLOR);
+
+      if(operator.getRawButtonPressed(Controls.operatorPanelColor)){
+        CameraServer.getInstance().startAutomaticCapture();
+      }
 
     } else {
 
