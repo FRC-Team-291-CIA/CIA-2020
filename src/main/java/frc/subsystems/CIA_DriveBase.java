@@ -14,21 +14,24 @@ public class CIA_DriveBase {
     private CIA_SparkMax motorZero, motorOne;
     private SpeedControllerGroup leftGroup, rightGroup;
     private Solenoid shifter;
-    private double lowSpeed, highSpeed, deadband, mathLeft, mathRight, overrideSpeed;
+    private double lowSpeed, highSpeed, deadband, mathLeft, mathRight, overrideSpeed, maxTiltAngle, tiltSpeedCorrection;
     private boolean inHighState = false;
     private boolean override = false;
     private Encoder leftEncoder, rightEncoder;
     private CIA_Gyro gyro;
+    private boolean tiltCorrectionEnabled = false;
+    private double rightSpeed, rightDistance, leftSpeed, leftDistance;
 
     /*
     Below is a constructor that takes in the following in order:
     Left Motor Port, Right Motor Port, Shifter Solenoid Port, Left Encoder Ports, Right Encoder Ports,
     The Deadband, The Low Speed, The High, The Override Speed, Right Side Reverse, All Sides Reversed
+    The max tilt angle, The tilt angle correct speed
     These values come from the robot.java class
     */
     public CIA_DriveBase(int leftMotorsPort, int rightMotorsPort, int shifterSolenoidPort, int leftEncoderPortZero, int leftEncoderPortOne, int rightEncoderPortZero, int rightEncoderPortOne, double newDeadband, 
                         double newLowSpeed, double newHighSpeed, double newOverrideSpeed, boolean newIsRightReversed,
-                        boolean newIsAllReversed){
+                        boolean newIsAllReversed, double newMaxTiltAngle, double newTiltSpeedCorrect){
                             
         //Below creates the motor objects
         motorZero = new CIA_SparkMax(leftMotorsPort);
@@ -54,6 +57,10 @@ public class CIA_DriveBase {
         highSpeed = newHighSpeed; //Takes in the high speed variable
 
         overrideSpeed = newOverrideSpeed; //Takes in the override speed variable
+
+        maxTiltAngle = newMaxTiltAngle;
+
+        tiltSpeedCorrection = newTiltSpeedCorrect;
 
         gyro = new CIA_Gyro();
     }
@@ -81,12 +88,46 @@ public class CIA_DriveBase {
         }
     }
 
+    private void correctTilt(double tiltAngle){
+        if(Subsystem_Variables.isOnlyLowGear){
+            inHighState = false;
+        } else {
+            inHighState = true;
+        }
+        
+        this.updateGears();
+
+        if (tiltAngle > 0){
+            leftGroup.set(-tiltSpeedCorrection);
+            rightGroup.set(-tiltSpeedCorrection);
+        } else {
+            leftGroup.set(tiltSpeedCorrection);
+            rightGroup.set(tiltSpeedCorrection);
+        }
+        
+    }
+
+    private void getEncoders(){
+        leftDistance = leftEncoder.getDistance()/217.3;
+        leftSpeed = leftEncoder.getRate();
+        rightDistance = rightEncoder.getDistance()/217.3;
+        rightSpeed = rightEncoder.getRate();
+    }
+
     /*
     Below is used for driving in arcade style. Switch Gears must be used with the 
     .getRawButtonPressed(int button) method for joysticks. This is to prevent it from tripping
     multiple times
     */
     public void arcadeDrive(double yAxis, double xAxis, boolean switchGears, boolean newOverride){
+        if(tiltCorrectionEnabled){
+            double tilt = gyro.getTilt();
+            if (Math.abs(tilt) > maxTiltAngle){
+                this.correctTilt(tilt);
+                return;
+            }
+        }
+
         if(switchGears){ //Checks to see if gears need to switch
             inHighState = !inHighState; //Switches States
         }
@@ -130,17 +171,21 @@ public class CIA_DriveBase {
                 }
             }
         }
-        
-        //Below sets the motors
-        leftGroup.set(this.mathLeft);
-        rightGroup.set(this.mathRight);
+
+        leftGroup.set(mathLeft);
+        rightGroup.set(mathRight);
     }
 
     public void update(){
         gyro.update();
+        this.getEncoders();
         SmartDashboard.putNumber("Left Drive Base", this.mathLeft); //Sends the left drive to the dashboard
         SmartDashboard.putNumber("Right Drive Base", this.mathRight); //Sends the right drive to the dashboard
         SmartDashboard.putBoolean("Is High Gear", this.inHighState); //Shows if its in high gear to the dashboard
         SmartDashboard.putBoolean("Drive Is Unrestricted", this.override); //Shows if the driver took off the restriction
+        SmartDashboard.putNumber("Left Encoder Distance", this.leftDistance);
+        SmartDashboard.putNumber("left Encoder Speed", this.leftSpeed);
+        SmartDashboard.putNumber("Right Encoder Distance", this.rightDistance);
+        SmartDashboard.putNumber("Right Encoder Speed", this.rightSpeed);
     }
 }
