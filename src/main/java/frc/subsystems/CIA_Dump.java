@@ -8,14 +8,12 @@ public class CIA_Dump {
     private boolean isReversed; //Used if it needs reversed
     private String currentState = "Dump_State_Not_Set_Yet"; //Used for the smartdashboard
     private dumpState lastState;
-
     //Below is the states that the dump can be in
     public static enum dumpState {
         OPEN, //Used to lower the gate and let balls out
         CLOSED, //Used to raise the gate and keep balls in
         CURRENT_STATE //Used to keep it in the current state
     }
-
     /*
     Below is a constructor that takes in the following:
     First Solenoid Port, Second Solenoid Port, If it is reversed
@@ -29,7 +27,6 @@ public class CIA_Dump {
 
         lastState = dumpState.CLOSED;
     }  
-
     //Below is used to set the solenoids into position
     private void setPiston(boolean pistonValue){
         if(isReversed){ //Checks to see if its reversed
@@ -40,7 +37,6 @@ public class CIA_Dump {
             piston.set(pistonValue);
         }
     }
-
     //Below is used to the set the state of the dump
     public void setDumpState(dumpState wantedState){
         switch(wantedState){ //Checks to see which state is the wanted state

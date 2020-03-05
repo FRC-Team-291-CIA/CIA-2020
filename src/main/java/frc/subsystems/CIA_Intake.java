@@ -18,10 +18,10 @@ public class CIA_Intake {
     public CIA_Intake(int newMotorPort, double newIntakePower, double newOuttakePower, boolean newIsReversed){
         //Below creates the spark
         motor = new CIA_SparkMax(newMotorPort); //Creates the sparks
-
+      
         intakePower = newIntakePower; //Takes in the power variable
         outtakePower = newOuttakePower;
-
+      
         isReversed = newIsReversed; //Takes in if its reversed
     }
 
