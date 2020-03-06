@@ -6,8 +6,6 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
-import edu.wpi.first.wpilibj.Timer;
-
 import frc.subsystems.Subsystem_Variables;
 
 public class CIA_Climber {
@@ -18,7 +16,6 @@ public class CIA_Climber {
     private double motorSpeed;
     private boolean hasGoneUp = false; //Used to tell if the climber has gone up
     private climbState lastState = climbState.STORE;
-    private Timer time;
     
     //Below is the states that the climber can be in
     public static enum climbState {
