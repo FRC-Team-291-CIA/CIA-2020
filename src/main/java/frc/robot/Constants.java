@@ -27,5 +27,5 @@ public class Constants {
     public static final boolean climberAllReversed = false; //Used for reversing the entire climber
 
     //Below is used for the control panel
-    public static final double controlPanelMotorSpeed = 0.4;
+    public static final double controlPanelMotorSpeed = 0.4; //TODO - Verify Correct Working Speed
 }

@@ -88,7 +88,14 @@ public class CIA_DriveBase {
         }
     }
 
-    private void correctTilt(double tiltAngle){
+    //TODO - Verify this works, Add a cut off after one rotation once enabled
+    private boolean correctTilt(double tiltAngle){
+        if(leftSpeed > 0 && rightSpeed < 0){
+            return false;
+        } else if (leftSpeed < 0 && rightSpeed > 0){
+            return false;
+        }
+
         if(Subsystem_Variables.isOnlyLowGear){
             inHighState = false;
         } else {
@@ -100,18 +107,20 @@ public class CIA_DriveBase {
         if (tiltAngle > 0){
             leftGroup.set(-tiltSpeedCorrection);
             rightGroup.set(-tiltSpeedCorrection);
+            return true;
         } else {
             leftGroup.set(tiltSpeedCorrection);
             rightGroup.set(tiltSpeedCorrection);
+            return true;
         }
-        
     }
 
+    //All encoder readings are in inches
     private void getEncoders(){
-        leftDistance = leftEncoder.getDistance()/217.3;
-        leftSpeed = leftEncoder.getRate();
-        rightDistance = rightEncoder.getDistance()/217.3;
-        rightSpeed = rightEncoder.getRate();
+        leftDistance = (leftEncoder.getDistance()/217.3)*12;
+        leftSpeed = (leftEncoder.getRate()/217.3)*12;
+        rightDistance = (rightEncoder.getDistance()/217.3)*12;
+        rightSpeed = (rightEncoder.getRate()/217.3)*12;
     }
 
     /*
@@ -123,8 +132,9 @@ public class CIA_DriveBase {
         if(tiltCorrectionEnabled){
             double tilt = gyro.getTilt();
             if (Math.abs(tilt) > maxTiltAngle){
-                this.correctTilt(tilt);
-                return;
+                if(this.correctTilt(tilt)){
+                    return;
+                }
             }
         }
 
