@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.Solenoid;
 import frc.subsystems.Subsystem_Variables;
 
 import frc.sensors.CIA_SparkMax; //Our own SparkMax Code
-import frc.robot.Constants;
 import frc.sensors.CIA_Gyro;
 
 public class CIA_DriveBase {
@@ -22,7 +21,7 @@ public class CIA_DriveBase {
     private boolean override = false;
     private Encoder leftEncoder, rightEncoder;
     private CIA_Gyro gyro;
-    private boolean tiltCorrectionEnabled = false;
+    private boolean tiltCorrectionEnabled = false; //This is an experimental feature, It must be HardCodded
     private double rightSpeed, rightDistance, leftSpeed, leftDistance;
     private DifferentialDriveOdometry odometry;
 
