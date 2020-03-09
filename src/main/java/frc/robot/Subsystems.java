@@ -42,6 +42,10 @@ public interface Subsystems{
     RobotMap.climberSolenoidForwardPort, RobotMap.climberSolenoidReversePort, Constants.climberPower, 
     Constants.climberRightReversed, Constants.climberAllReversed);
 
+    /*
+    Below is a constructor that takes in the following in order:
+    The Motor Port
+    */
     public static final CIA_Control_Panel controlPanel = new CIA_Control_Panel(RobotMap.controlPanelMotorPort, Constants.controlPanelMotorSpeed);
 
     public static final AutoController autoController = new AutoController();
