@@ -1,6 +1,8 @@
 package frc.subsystems;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -8,6 +10,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import frc.subsystems.Subsystem_Variables;
 
 import frc.sensors.CIA_SparkMax; //Our own SparkMax Code
+import frc.robot.Constants;
 import frc.sensors.CIA_Gyro;
 
 public class CIA_DriveBase {
@@ -21,6 +24,7 @@ public class CIA_DriveBase {
     private CIA_Gyro gyro;
     private boolean tiltCorrectionEnabled = false;
     private double rightSpeed, rightDistance, leftSpeed, leftDistance;
+    private DifferentialDriveOdometry odometry;
 
     /*
     Below is a constructor that takes in the following in order:
@@ -176,6 +180,15 @@ public class CIA_DriveBase {
         rightGroup.set(mathRight);
     }
 
+    public void odometryUpdate(){
+        odometry.update(Rotation2d.fromDegrees(gyro.getHeading()), leftEncoder.getDistance(), rightEncoder.getDistance());
+    }
+
+    public void setDrivetrainVoltage(double leftVoltage, double rightVoltage){
+        leftGroup.setVoltage(leftVoltage);
+        rightGroup.setVoltage(rightVoltage);
+    }
+    
     public void update(){
         gyro.update();
         this.getEncoders();
