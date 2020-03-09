@@ -16,12 +16,9 @@ import frc.subsystems.CIA_Control_Panel.controlPanelState;
 
 import frc.sensors.CIA_Limelight;
 
-import frc.sensors.CIA_Blinkin;
-
 public class Robot extends TimedRobot implements Subsystems {
   private Joystick driver, operator;
   private CIA_Limelight camera;
-  private CIA_Blinkin lights;
   private boolean isUSBCamStarted = false;
 
   @Override
@@ -33,8 +30,6 @@ public class Robot extends TimedRobot implements Subsystems {
     operator = new Joystick(1);
     
     camera = new CIA_Limelight();
-
-    lights = new CIA_Blinkin(RobotMap.lightControlPWM);
   }
 
   @Override
@@ -49,8 +44,6 @@ public class Robot extends TimedRobot implements Subsystems {
     //Below uses the update function to display the smartdashboard and to switch cameras
     camera.update(driver.getRawButtonPressed(Controls.driverCameraSwitchButton) || 
     operator.getRawButtonPressed(Controls.operatorCameraSwitchButton));
-
-    lights.update();
   }
 
   @Override

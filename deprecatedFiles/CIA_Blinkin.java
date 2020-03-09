@@ -2,7 +2,8 @@ package frc.sensors;
 
 import edu.wpi.first.wpilibj.Spark;
 
-//TODO - Set Light Ports
+//Deprecated 3/9/2020 because we are not using the light strip
+@Deprecated
 public class CIA_Blinkin{
     Spark lights;
     double colorRed = 0.61;

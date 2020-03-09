@@ -21,7 +21,7 @@ public class CIA_DriveBase {
     private boolean override = false;
     private Encoder leftEncoder, rightEncoder;
     private CIA_Gyro gyro;
-    private boolean tiltCorrectionEnabled = false;
+    private boolean tiltCorrectionEnabled = false; //This is an experimental feature, It must be HardCodded
     private double rightSpeed, rightDistance, leftSpeed, leftDistance;
     private DifferentialDriveOdometry odometry;
 
