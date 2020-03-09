@@ -12,6 +12,7 @@ public class Constants {
     public static final boolean driveAllReverse = true; //Reverses all motors.
     public static final double driveMaxAngle = 10;
     public static final double driveTiltSpeedCorrect = 0.4;
+    public static final double distancePerPulse = 1;
 
     //Below is used for intake
     public static final double intakePower = 0.80; //Power Used On The Intake
