@@ -1,7 +1,6 @@
 package frc.sensors;
 
 import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 //TODO - Set Light Ports
 public class CIA_Blinkin{

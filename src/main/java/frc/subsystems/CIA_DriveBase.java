@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.Solenoid;
 import frc.subsystems.Subsystem_Variables;
 
 import frc.sensors.CIA_SparkMax; //Our own SparkMax Code
-import frc.robot.Constants;
 import frc.sensors.CIA_Gyro;
 
 public class CIA_DriveBase {
