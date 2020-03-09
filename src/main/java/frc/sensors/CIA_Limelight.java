@@ -5,19 +5,21 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 
 import edu.wpi.first.wpilibj.smartdashboard.*;
 
+//Use the panel to adjust pipeline one for colors and exposure
 public class CIA_Limelight{
     NetworkTable table;
     boolean limelightView = true; //Creates boolean for switching cameras
 
     public CIA_Limelight(){
+        /*
         table = NetworkTableInstance.getDefault().getTable("limelight");
 
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(1);
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(0); 
+        */
     }
 
-    
     private void switchCameras(){ //Used to switch the boolean
         limelightView = !limelightView;
     }
@@ -33,10 +35,12 @@ public class CIA_Limelight{
         }
 
         //Below sets the camera to not vision process
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(1);
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(0);
 
-        //Below turns off the LEDS
+        //Below turns off the Leds
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
+
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeLine").setNumber(1);
 
         //Below checks to see which camera it is and display the camera
         if (this.currentCamera() == true){ 
@@ -48,6 +52,7 @@ public class CIA_Limelight{
             NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(2); 
 
         }  
+        
 
         SmartDashboard.putBoolean("Viewing Limelight: ", this.limelightView); //Displays boolean of camera display
     }

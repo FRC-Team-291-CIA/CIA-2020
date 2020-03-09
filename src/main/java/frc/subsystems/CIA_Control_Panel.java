@@ -66,6 +66,7 @@ public class CIA_Control_Panel {
                 }
             case SPIN:
                 currentState = "SPIN"; //Shows the current state
+                spinNotComplete = true;
                 //motor.set(0.4); // Temporary
                 
                 while(spinNotComplete){ //Checks if the spin is done
@@ -91,16 +92,15 @@ public class CIA_Control_Panel {
                             motor.set(motorSpeed);
                         } else if(counter >= 8){
                             motor.set(0.00);
-                            spinNotComplete = false;
+                            spinNotComplete = true;
                         } else {
                             motor.set(motorSpeed);
                             alreadyOnGreen = false;
-                    } 
+                        }
                     } else {
-                       // System.out.println("ERROR WITH CONTROL PANEL!!!");
+                       System.out.println("ERROR WITH CONTROL PANEL!!!");
                     }   
-                }
-                
+                }                
                 break;
             case STOP:
                 currentState = "STOP";

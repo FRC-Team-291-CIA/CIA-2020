@@ -26,14 +26,13 @@ import frc.subsystems.CIA_Control_Panel.controlPanelState;
 
 import frc.sensors.CIA_Limelight;
 
+import frc.sensors.CIA_Blinkin;
+
 public class Robot extends TimedRobot implements Subsystems {
-  /*private CIA_DriveBase driveBase;
-  private CIA_Intake intake;
-  private CIA_Dump dump;
-  private CIA_Climber climber;
-  private CIA_Control_Panel controlPanel;*/
   private Joystick driver, operator;
   private CIA_Limelight camera;
+  private CIA_Blinkin lights;
+  private boolean isUSBCamStarted = false;
 
   @Override
   public void robotInit() {
@@ -81,6 +80,8 @@ public class Robot extends TimedRobot implements Subsystems {
     //controlPanel = new CIA_Control_Panel(RobotMap.controlPanelMotorPort, Constants.controlPanelMotorSpeed);
     
     camera = new CIA_Limelight();
+
+    lights = new CIA_Blinkin(RobotMap.lightControlPWM);
   }
 
   @Override
@@ -95,6 +96,8 @@ public class Robot extends TimedRobot implements Subsystems {
     //Below uses the update function to display the smartdashboard and to switch cameras
     camera.update(driver.getRawButtonPressed(Controls.driverCameraSwitchButton) || 
     operator.getRawButtonPressed(Controls.operatorCameraSwitchButton));
+
+    lights.update();
   }
 
   @Override
@@ -152,6 +155,18 @@ public class Robot extends TimedRobot implements Subsystems {
 
       climber.setClimbState(climbState.RAISE_UP);
 
+      if(operator.getRawButtonPressed(Controls.operatorPanelColor)){
+
+        if(!isUSBCamStarted){
+
+        CameraServer.getInstance().startAutomaticCapture();
+
+        isUSBCamStarted = true;
+
+        }
+        
+      }
+
     } else if (operator.getRawButton(Controls.operatorClimberStore)){
 
       climber.setClimbState(climbState.STORE);
@@ -170,10 +185,6 @@ public class Robot extends TimedRobot implements Subsystems {
     } else if (operator.getRawButton(Controls.operatorPanelColor)){
 
       controlPanel.setControlState(controlPanelState.GO_TO_COLOR);
-
-      if(operator.getRawButtonPressed(Controls.operatorPanelColor)){
-        CameraServer.getInstance().startAutomaticCapture();
-      }
 
     } else {
 
