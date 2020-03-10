@@ -18,8 +18,8 @@ import java.nio.file.Path;
 
 public abstract class AutoMode implements Subsystems {
 
-    public static RamseteController ramseteController = new RamseteController();
-    public static Trajectory trajectory;
+    private static RamseteController ramseteController = new RamseteController();
+    private static Trajectory trajectory;
 
     private DifferentialDriveKinematics autoKinematics = new DifferentialDriveKinematics(0.5715);
     private CIA_PID leftDrivePID = new CIA_PID(1.5, 0.0, 4.0, 2.0);
