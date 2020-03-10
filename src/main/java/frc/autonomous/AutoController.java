@@ -100,5 +100,9 @@ public class AutoController {
         return autoMode;
         
     }
+
+    public AutoMode select(AutoMode autoMode){
+        return autoMode;
+    }
 }
 
