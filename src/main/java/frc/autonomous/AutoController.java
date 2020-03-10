@@ -37,14 +37,68 @@ public class AutoController {
         autoChooser.setDefaultOption("Do Nothing", doNothing);
         autoChooser.addOption("Cross Baseline", crossBaseline);
         autoChooser.addOption("Dump Balls Once", dumpBallsOnce);
+        autoChooser.addOption("Dump Balls And Pick Up More", dumpBallsAndPickUp);
     }
 
     public void start() {
+        
         select();
     }
 
-    private void select() {
+    private AutoMode select(){
+        AutoMode autoMode = new DoNothing();
+        String fieldPos = fieldPosition.getSelected();
+        String autoRoutine = autoChooser.getSelected();
 
+        if(fieldPos.equalsIgnoreCase(right)){
+            switch(autoRoutine){
+                case doNothing:
+                    autoMode = new DoNothing();
+                    break;
+                case crossBaseline: 
+                    autoMode = new CrossBaseline();
+                    break;
+                case dumpBallsOnce: 
+                    autoMode = new RightSideDump();
+                    break;
+                case dumpBallsAndPickUp: 
+                    autoMode = new RightSideDumpAndPickUp();
+                    break;
+            }
+        }else if(fieldPos.equalsIgnoreCase(left)){
+            switch(autoRoutine){
+                case doNothing:
+                    autoMode = new DoNothing();
+                    break;
+                case crossBaseline: 
+                    autoMode = new CrossBaseline();
+                    break;
+                case dumpBallsOnce: 
+                    autoMode = new LeftSideDump();
+                    break;
+                case dumpBallsAndPickUp: 
+                    autoMode = new LeftSideDumpAndPickUp();
+                    break;
+            }
+        }else if(fieldPos.equalsIgnoreCase(center)){
+            switch(autoRoutine){
+                case doNothing: 
+                    autoMode = new DoNothing();
+                    break;
+                case crossBaseline:
+                    autoMode = new CrossBaseline();
+                    break;
+                case dumpBallsOnce:
+                    autoMode = new CenterSideDump();
+                    break;
+                case dumpBallsAndPickUp: 
+                    autoMode = new CenterSideDumpAndPickUp();
+                    break;
+            }
+        }
+
+        return autoMode;
+        
     }
-
 }
+

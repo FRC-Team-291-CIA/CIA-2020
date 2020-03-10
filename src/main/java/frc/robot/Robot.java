@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.cameraserver.CameraServer;
 
 import frc.robot.RobotMap;
+import frc.autonomous.AutoMode;
 import frc.robot.Constants;
 import frc.robot.Controls;
 
@@ -33,6 +34,7 @@ public class Robot extends TimedRobot implements Subsystems {
   private CIA_Limelight camera;
   private CIA_Blinkin lights;
   private boolean isUSBCamStarted = false;
+  private AutoMode autoMode;
 
   @Override
   public void robotInit() {
@@ -107,7 +109,7 @@ public class Robot extends TimedRobot implements Subsystems {
 
   @Override
   public void autonomousPeriodic() {
- 
+    
   }
 
   @Override

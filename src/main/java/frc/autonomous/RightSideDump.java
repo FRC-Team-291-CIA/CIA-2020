@@ -6,11 +6,13 @@ public class RightSideDump extends AutoMode{
 
     } 
 
-    public static enum rightSideDumpState{
+    private enum rightSideDumpState{
+        INIT,
         START_TO_POWERPORT,
-        DUMP,
-        EXECUTE
+        DUMP
     }
+
+    private rightSideDumpState state = rightSideDumpState.INIT;
 
     @Override
     public void autoInit() {
@@ -19,17 +21,13 @@ public class RightSideDump extends AutoMode{
 
     @Override
     public void autoRun() {
-        setAutoState(rightSideDumpState.EXECUTE);
-    }
-
-    public void setAutoState(rightSideDumpState wantedState){
-        switch(wantedState){
-            case EXECUTE:
+        switch(state){
+            case INIT:
+            break;
             case START_TO_POWERPORT:
-                setTrajectory("paths/output/Right_DumpBalls.wpilib.json");
+            break;
             case DUMP:
-                break;
-
+            break;
         }
     }
     

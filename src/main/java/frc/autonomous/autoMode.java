@@ -2,10 +2,12 @@ package frc.autonomous;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
+//import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj.controller.RamseteController;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
-
+import edu.wpi.first.wpilibj.trajectory.Trajectory.State;
 import frc.robot.Subsystems;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -13,6 +15,7 @@ import java.nio.file.Path;
 public abstract class AutoMode implements Subsystems {
 
     public static RamseteController ramseteController = new RamseteController();
+    private DifferentialDriveKinematics autoKinematics = new DifferentialDriveKinematics(0.5715);
     public static Trajectory trajectory;
     
     
@@ -23,9 +26,16 @@ public abstract class AutoMode implements Subsystems {
         } catch (IOException ex) {
             DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
         }
-        
     }
-    
+
+    public void followTrajectory(){
+        
+        for(State currState: trajectory.getStates()){
+            autoKinematics.toWheelSpeeds(ramseteController.calculate(currState.poseMeters, currState));
+
+        }
+    }
+        
     public abstract void autoInit();
 
     public abstract void autoRun();
