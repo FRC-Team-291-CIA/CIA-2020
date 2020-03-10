@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj.Joystick;
 
 import edu.wpi.first.cameraserver.CameraServer;
 
+import frc.autonomous.AutoMode;
+
 import frc.robot.Controls;
 
 import frc.subsystems.CIA_Intake.intakeState;
