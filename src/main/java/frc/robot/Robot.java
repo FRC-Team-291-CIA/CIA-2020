@@ -18,6 +18,7 @@ public class Robot extends TimedRobot implements Subsystems {
   private Joystick driver, operator;
   private CIA_Limelight camera;
   private boolean isUSBCamStarted = false;
+  private AutoMode autoMode;
 
   @Override
   public void robotInit() {
@@ -44,12 +45,12 @@ public class Robot extends TimedRobot implements Subsystems {
 
   @Override
   public void autonomousInit() {
-    
+    autoMode = autoController.select();
   }
 
   @Override
   public void autonomousPeriodic() {
- 
+    autoMode.autoRun();
   }
 
   @Override
