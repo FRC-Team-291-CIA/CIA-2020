@@ -1,12 +1,10 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.Joystick;
 
 import edu.wpi.first.cameraserver.CameraServer;
 
-import frc.robot.RobotMap;
 import frc.robot.Controls;
 
 import frc.subsystems.CIA_Intake.intakeState;
@@ -23,8 +21,6 @@ public class Robot extends TimedRobot implements Subsystems {
 
   @Override
   public void robotInit() {
-    LiveWindow.disableAllTelemetry(); //Disabled due to too many can errors
-
     //Below the joysticks are created
     driver = new Joystick(0);
     operator = new Joystick(1);
@@ -58,7 +54,10 @@ public class Robot extends TimedRobot implements Subsystems {
 
   @Override
   public void teleopInit() {
-
+    intake.setIntakeState(intakeState.STOP);
+    dump.setDumpState(dumpState.CURRENT_STATE);
+    climber.setClimbState(climbState.STORE);
+    controlPanel.setControlState(controlPanelState.STOP);
   }
 
   @Override
