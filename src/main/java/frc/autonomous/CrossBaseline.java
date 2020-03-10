@@ -1,6 +1,10 @@
 package frc.autonomous;
 
+import edu.wpi.first.wpilibj.Timer;
+
 public class CrossBaseline extends AutoMode {
+
+    private Timer gameTimer = new Timer();
 
     public CrossBaseline(){
 
@@ -26,7 +30,11 @@ public class CrossBaseline extends AutoMode {
                 state = crossBaselineState.CROSS;
                 break;
             case CROSS: 
-                driveBase.setDrivetrainVoltage(.05, .05);
+                if(gameTimer.get() < 4.0){
+                    driveBase.setDrivetrainVoltage(.05, .05);
+                }else{                    
+                    driveBase.setDrivetrainVoltage(0, 0);
+                }
 
         }
     }
