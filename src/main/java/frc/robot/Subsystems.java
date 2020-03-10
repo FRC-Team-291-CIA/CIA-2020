@@ -1,6 +1,7 @@
 package frc.robot;
 
 import frc.autonomous.AutoController;
+import frc.autonomous.AutoMode;
 import frc.subsystems.CIA_Climber;
 import frc.subsystems.CIA_Control_Panel;
 import frc.subsystems.CIA_DriveBase;

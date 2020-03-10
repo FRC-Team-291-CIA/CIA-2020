@@ -104,12 +104,12 @@ public class Robot extends TimedRobot implements Subsystems {
 
   @Override
   public void autonomousInit() {
-    
+    autoMode = autoController.select();
   }
 
   @Override
   public void autonomousPeriodic() {
-    
+    autoMode.autoRun();
   }
 
   @Override

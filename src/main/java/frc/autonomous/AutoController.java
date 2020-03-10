@@ -45,7 +45,7 @@ public class AutoController {
         select();
     }
 
-    private AutoMode select(){
+    public AutoMode select(){
         AutoMode autoMode = new DoNothing();
         String fieldPos = fieldPosition.getSelected();
         String autoRoutine = autoChooser.getSelected();
