@@ -4,7 +4,7 @@ import frc.subsystems.CIA_Dump.dumpState;
 
 public class RightSideDump extends AutoMode{
     
-    private String trajectoryDir = "src/main/java/frc/autonomous/paths/output/Right_DumpBalls.wpilib.json";
+    private String trajectoryDir = "output/Right_DumpBalls.wpilib.json";
 
     public RightSideDump(){
 
