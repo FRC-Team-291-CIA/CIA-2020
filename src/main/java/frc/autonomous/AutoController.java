@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutoController {
     // Strings here are for labeling our starting position on the field in the
@@ -33,20 +34,21 @@ public class AutoController {
     
 
     public AutoController() {
-        fieldPosition.initSendable(fieldPos);
+        //fieldPosition.initSendable(fieldPos);
         fieldPosition.setDefaultOption("Left", left);
         fieldPosition.addOption("Right", right);
         fieldPosition.addOption("Center", center);
+        SmartDashboard.putData("FIELD POSITION", fieldPosition);
 
-        autoChooser.initSendable(autoChoose);
+        //autoChooser.initSendable(autoChoose);
         autoChooser.setDefaultOption("Do Nothing", doNothing);
         autoChooser.addOption("Cross Baseline", crossBaseline);
         autoChooser.addOption("Dump Balls Once", dumpBallsOnce);
         autoChooser.addOption("Dump Balls And Pick Up More", dumpBallsAndPickUp);
+        SmartDashboard.putData("AUTO CHOOSER", autoChooser);
     }
 
-    public void start() {
-        
+    public void start() { 
         select();
     }
 
