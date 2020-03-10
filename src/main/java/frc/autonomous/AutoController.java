@@ -1,6 +1,8 @@
 package frc.autonomous;
 
 import java.util.HashMap;
+
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 public class AutoController {
@@ -26,14 +28,17 @@ public class AutoController {
     private SendableChooser<String> autoChooser = new SendableChooser<>();
     // hashmaps will be used to identify automodes and run them
     private HashMap<String, Object> autoMap = new HashMap<String, Object>();
-
+    private SendableBuilder fieldPos;
+    private SendableBuilder autoChoose;
     
 
     public AutoController() {
+        fieldPosition.initSendable(fieldPos);
         fieldPosition.setDefaultOption("Left", left);
         fieldPosition.addOption("Right", right);
         fieldPosition.addOption("Center", center);
 
+        autoChooser.initSendable(autoChoose);
         autoChooser.setDefaultOption("Do Nothing", doNothing);
         autoChooser.addOption("Cross Baseline", crossBaseline);
         autoChooser.addOption("Dump Balls Once", dumpBallsOnce);
