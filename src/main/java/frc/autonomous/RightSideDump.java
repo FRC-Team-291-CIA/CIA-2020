@@ -1,6 +1,10 @@
 package frc.autonomous;
 
+import frc.subsystems.CIA_Dump.dumpState;
+
 public class RightSideDump extends AutoMode{
+    
+    private String trajectoryDir = "src/main/java/frc/autonomous/paths/output/Right_DumpBalls.wpilib.json";
 
     public RightSideDump(){
 
@@ -16,18 +20,23 @@ public class RightSideDump extends AutoMode{
 
     @Override
     public void autoInit() {
-    
+        setTrajectory(trajectoryDir);
     }
 
     @Override
     public void autoRun() {
         switch(state){
             case INIT:
-            break;
+                autoInit();
+                state = rightSideDumpState.START_TO_POWERPORT;
+                break;
             case START_TO_POWERPORT:
-            break;
+                followTrajectory();
+                state = rightSideDumpState.DUMP;
+                break;
             case DUMP:
-            break;
+                dump.setDumpState(dumpState.OPEN);
+                break;
         }
     }
     
