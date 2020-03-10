@@ -1,7 +1,7 @@
 <xml version="1.0">
 <dashboard>
 	<widget field="Right Drive Base" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="968" y="430"/>
+		<location x="958" y="424"/>
 	</widget>
 	<widget field="Left Drive Base" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="754" y="423"/>
@@ -19,10 +19,10 @@
 		<location x="1129" y="391"/>
 	</widget>
 	<widget field="Right Encoder Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="946" y="459"/>
+		<location x="938" y="452"/>
 	</widget>
 	<widget field="Right Encoder Distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="934" y="483"/>
+		<location x="930" y="480"/>
 	</widget>
 	<widget field="left Encoder Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="740" y="452"/>
@@ -121,5 +121,65 @@
 	</static-widget>
 </dashboard>
 <live-window>
+	<widget field="Ungrouped" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
+		<widget field="Encoder[1]" type="Quadrature Encoder" class="edu.wpi.first.smartdashboard.livewindow.elements.EncoderDisplay">
+			<location x="6" y="16"/>
+			<height>97</height>
+			<width>297</width>
+		</widget>
+		<widget field="DoubleSolenoid[0,2]" type="Double Solenoid" class="edu.wpi.first.smartdashboard.livewindow.elements.RelayController">
+			<location x="6" y="113"/>
+			<height>20</height>
+			<width>297</width>
+		</widget>
+		<widget field="tSpeedControllerGroup[3]" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
+			<location x="6" y="133"/>
+			<height>45</height>
+			<width>297</width>
+		</widget>
+		<widget field="Solenoid[0,1]" type="Solenoid" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalOutputController">
+			<location x="92" y="178"/>
+			<height>23</height>
+			<width>123</width>
+		</widget>
+		<widget field="tSpeedControllerGroup[2]" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
+			<location x="6" y="201"/>
+			<height>45</height>
+			<width>297</width>
+		</widget>
+		<widget field="Solenoid[0,0]" type="Solenoid" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalOutputController">
+			<location x="92" y="246"/>
+			<height>23</height>
+			<width>123</width>
+		</widget>
+		<widget field="SparkMax[2]" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
+			<location x="6" y="269"/>
+			<height>45</height>
+			<width>297</width>
+		</widget>
+		<widget field="tSpeedControllerGroup[1]" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
+			<location x="6" y="314"/>
+			<height>45</height>
+			<width>297</width>
+		</widget>
+		<widget field="Encoder[0]" type="Quadrature Encoder" class="edu.wpi.first.smartdashboard.livewindow.elements.EncoderDisplay">
+			<location x="6" y="359"/>
+			<height>97</height>
+			<width>297</width>
+		</widget>
+		<widget field="SparkMax[5]" type="Speed Controller" class="edu.wpi.first.smartdashboard.livewindow.elements.SpeedController">
+			<location x="6" y="456"/>
+			<height>45</height>
+			<width>297</width>
+		</widget>
+		<widget field="navX-Sensor" type="Gyro" class="edu.wpi.first.smartdashboard.gui.elements.Compass">
+			<location x="6" y="501"/>
+			<height>150</height>
+			<width>297</width>
+		</widget>
+		<location x="13" y="7"/>
+		<width>309</width>
+		<height>657</height>
+	</widget>
 </live-window>
 </xml>

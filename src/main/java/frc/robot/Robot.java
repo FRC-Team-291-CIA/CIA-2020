@@ -1,89 +1,32 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.Joystick;
 
 import edu.wpi.first.cameraserver.CameraServer;
 
-import frc.robot.RobotMap;
-import frc.autonomous.AutoMode;
-import frc.robot.Constants;
 import frc.robot.Controls;
 
-import frc.subsystems.CIA_DriveBase;
-
-import frc.subsystems.CIA_Intake;
 import frc.subsystems.CIA_Intake.intakeState;
-
-import frc.subsystems.CIA_Dump;
 import frc.subsystems.CIA_Dump.dumpState;
-
-import frc.subsystems.CIA_Climber;
 import frc.subsystems.CIA_Climber.climbState;
-
-import frc.subsystems.CIA_Control_Panel;
 import frc.subsystems.CIA_Control_Panel.controlPanelState;
 
 import frc.sensors.CIA_Limelight;
 
-import frc.sensors.CIA_Blinkin;
-
 public class Robot extends TimedRobot implements Subsystems {
   private Joystick driver, operator;
   private CIA_Limelight camera;
-  private CIA_Blinkin lights;
   private boolean isUSBCamStarted = false;
   private AutoMode autoMode;
 
   @Override
   public void robotInit() {
-    LiveWindow.disableAllTelemetry(); //Disabled due to too many can errors
-
     //Below the joysticks are created
     driver = new Joystick(0);
     operator = new Joystick(1);
     
-    /*
-    Below is a constructor that takes in the following in order:
-    Left Motor Port, Right Motor Port, Shifter Solenoid Port, Left Encoder Ports, Right Encoder Ports,
-    The Deadband, The Low Speed, The High, The Override Speed, Right Side Reverse, All Sides Reversed
-    The max tilt angle, The tilt angle correct speed
-    */
-    /*
-    driveBase = new CIA_DriveBase(RobotMap.leftDriveMotorsPort, RobotMap.rightDriveMotorsPort, 
-    RobotMap.shifterSolenoidPort, RobotMap.leftEncoderZeroPort, RobotMap.leftEncoderOnePort, 
-    RobotMap.rightEncoderZeroPort, RobotMap.rightEncoderOnePort ,Constants.driveDeadband, 
-    Constants.driveLowSpeed, Constants.driveHighSpeed, Constants.driveOverride, 
-    Constants.driveRightReverse, Constants.driveAllReverse, Constants.driveMaxAngle, 
-    Constants.driveTiltSpeedCorrect);
-    */
-    /*
-    Below is a constructor that takes in the following in order: 
-    The first motor port, The second motor port, The Power of Motors, If it is reversed
-    */
-    //intake = new CIA_Intake(RobotMap.intakeMotorPort, Constants.intakePower, Constants.outtakePower, Constants.intakeIsReversed);
-    
-    /*
-    Below is a constructor that takes in the following:
-    First Solenoid Port, If it is reversed
-    */
-    //dump = new CIA_Dump(RobotMap.dumpSolenoidZeroPort, Constants.dumpIsReversed);
-
-    /*
-    Below is a constructor that takes in the following in order:
-    The first motor, the second motor, the first and second double solenoid port, the motor speed,
-    right reversed boolean, all reversed all
-    */
-    /*climber = new CIA_Climber(RobotMap.climberMotorLeftPort, RobotMap.climberMotorRightPort, 
-    RobotMap.climberSolenoidForwardPort, RobotMap.climberSolenoidReversePort, Constants.climberPower, 
-    Constants.climberRightReversed, Constants.climberAllReversed);
-    */
-    //controlPanel = new CIA_Control_Panel(RobotMap.controlPanelMotorPort, Constants.controlPanelMotorSpeed);
-    
     camera = new CIA_Limelight();
-
-    lights = new CIA_Blinkin(RobotMap.lightControlPWM);
   }
 
   @Override
@@ -98,8 +41,6 @@ public class Robot extends TimedRobot implements Subsystems {
     //Below uses the update function to display the smartdashboard and to switch cameras
     camera.update(driver.getRawButtonPressed(Controls.driverCameraSwitchButton) || 
     operator.getRawButtonPressed(Controls.operatorCameraSwitchButton));
-
-    lights.update();
   }
 
   @Override
@@ -114,7 +55,10 @@ public class Robot extends TimedRobot implements Subsystems {
 
   @Override
   public void teleopInit() {
-
+    intake.setIntakeState(intakeState.STOP);
+    dump.setDumpState(dumpState.CURRENT_STATE);
+    climber.setClimbState(climbState.STORE);
+    controlPanel.setControlState(controlPanelState.STOP);
   }
 
   @Override

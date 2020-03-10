@@ -18,9 +18,6 @@ public class RobotMap {
         //Motor for Control Panel
         public static final int controlPanelMotorPort = 5;
 
-        //PWM Port for Lights
-        public static final int lightControlPWM = 6; //TODO - Verify Port
-
     //Solenoids
         //Solenoid for Drive Base
         public static final int shifterSolenoidPort = 1;  
