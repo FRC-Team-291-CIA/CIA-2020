@@ -127,6 +127,16 @@ public class CIA_DriveBase {
         rightSpeed = (rightEncoder.getRate()/217.3)*12;
     }
 
+    public double getRightEncoderVel(){
+        getEncoders();
+        return rightSpeed;
+    }
+
+    public double getLeftEncoderVel(){
+        getEncoders();
+        return leftSpeed;
+    }
+
     /*
     Below is used for driving in arcade style. Switch Gears must be used with the 
     .getRawButtonPressed(int button) method for joysticks. This is to prevent it from tripping
