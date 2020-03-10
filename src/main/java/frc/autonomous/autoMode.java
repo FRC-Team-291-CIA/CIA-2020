@@ -39,8 +39,8 @@ public abstract class AutoMode implements Subsystems {
         
         for(State currState: trajectory.getStates()){
             DifferentialDriveWheelSpeeds driveWheelSpeeds = autoKinematics.toWheelSpeeds(ramseteController.calculate(currState.poseMeters, currState));
-            leftDrivePID.setDesiredValue(driveWheelSpeeds.leftMetersPerSecond);
-            rightDrivePID.setDesiredValue(driveWheelSpeeds.rightMetersPerSecond);
+            leftDrivePID.setDesiredValue(driveWheelSpeeds.leftMetersPerSecond*39.37);
+            rightDrivePID.setDesiredValue(driveWheelSpeeds.rightMetersPerSecond*39.37);
             driveBase.setDrivetrainVoltage(leftDrivePID.calcPID(driveBase.getLeftEncoderVel()), rightDrivePID.calcPID(driveBase.getRightEncoderVel()));
 
         }
