@@ -47,13 +47,20 @@ public class Robot extends TimedRobot implements Subsystems {
 
   @Override
   public void autonomousInit() {
+
     autoMode = autoController.select();
+
+    autoMode.autoInit();
+
   }
 
   @Override
   public void autonomousPeriodic() {
+
     autoMode.autoRun();
+    
   }
+
 
   @Override
   public void teleopInit() {
