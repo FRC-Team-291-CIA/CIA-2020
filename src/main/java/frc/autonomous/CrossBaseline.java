@@ -11,30 +11,26 @@ public class CrossBaseline extends AutoMode {
     }
 
     private enum crossBaselineState{
-        INIT,
         CROSS
     }
 
-    private crossBaselineState state = crossBaselineState.INIT;
+    private crossBaselineState state = crossBaselineState.CROSS;
 
     @Override
     public void autoInit() {
-
+        gameTimer.start();
     }
 
     @Override
     public void autoRun() {
         switch(state){
-            case INIT:
-                autoInit();
-                state = crossBaselineState.CROSS;
-                break;
             case CROSS: 
-                if(gameTimer.get() < 4.0){
-                    driveBase.setDrivetrainVoltage(.05, .05);
+                if(gameTimer.get() < 2.0){
+                    driveBase.setDrivetrainVoltage(.3, .3);
                 }else{                    
                     driveBase.setDrivetrainVoltage(0, 0);
                 }
+                break;
 
         }
     }

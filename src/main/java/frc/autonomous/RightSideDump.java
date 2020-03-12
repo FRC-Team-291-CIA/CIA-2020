@@ -6,32 +6,30 @@ public class RightSideDump extends AutoMode{
     
     private String trajectoryDir = "output/Right_DumpBalls.wpilib.json";
 
-    public RightSideDump(){
 
+    public RightSideDump(){
+        
     } 
 
     private enum rightSideDumpState{
-        INIT,
         START_TO_POWERPORT,
         DUMP
     }
 
-    private rightSideDumpState state = rightSideDumpState.INIT;
+    private rightSideDumpState state = rightSideDumpState.START_TO_POWERPORT;
 
     @Override
     public void autoInit() {
-        setTrajectory(trajectoryDir);
+        trajectoryFollower.setTrajectory(trajectoryDir);
+        trajectoryFollower.initTrajectory();
     }
 
     @Override
     public void autoRun() {
         switch(state){
-            case INIT:
-                autoInit();
-                state = rightSideDumpState.START_TO_POWERPORT;
-                break;
             case START_TO_POWERPORT:
-                followTrajectory();
+                
+                trajectoryFollower.followTrajectory();
                 state = rightSideDumpState.DUMP;
                 break;
             case DUMP:
