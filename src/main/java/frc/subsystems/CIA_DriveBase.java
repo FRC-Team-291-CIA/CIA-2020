@@ -1,8 +1,11 @@
 package frc.subsystems;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -120,10 +123,10 @@ public class CIA_DriveBase {
 
     //All encoder readings are in inches
     private void getEncoders(){
-        leftDistance = (leftEncoder.getDistance()/217.3)*12;
-        leftSpeed = (leftEncoder.getRate()/217.3)*12;
-        rightDistance = (rightEncoder.getDistance()/217.3)*12;
-        rightSpeed = (rightEncoder.getRate()/217.3)*12;
+        leftDistance = (leftEncoder.getDistance()/217.3);
+        leftSpeed = (leftEncoder.getRate()/217.3);
+        rightDistance = (rightEncoder.getDistance()/217.3);
+        rightSpeed = (rightEncoder.getRate()/217.3);
     }
 
     public double getRightEncoderVel(){
@@ -133,7 +136,7 @@ public class CIA_DriveBase {
 
     public double getLeftEncoderVel(){
         getEncoders();
-        return leftSpeed;
+        return -leftSpeed;
     }
 
     /*
@@ -208,16 +211,31 @@ public class CIA_DriveBase {
         rightGroup.setVoltage(rightVoltage);
     }
 
+    public DifferentialDriveWheelSpeeds getWheelSpeeds(){
+        return new DifferentialDriveWheelSpeeds(getLeftEncoderVel(), getRightEncoderVel());
+    }
+
+    public Pose2d getPoseInMeters(){
+        return odometry.getPoseMeters();
+    }
+
+    public Pose2d getPoseInches(){
+        double x = getPoseInMeters().getTranslation().getX() * 39.37;
+        double y = getPoseInMeters().getTranslation().getY() * 39.37;
+        return new Pose2d(new Translation2d(x, y), getPoseInMeters().getRotation());
+    }
+
     
     public void update(){
         gyro.update();
+        odometryUpdate();
         this.getEncoders();
         SmartDashboard.putNumber("Left Drive Base", this.mathLeft); //Sends the left drive to the dashboard
         SmartDashboard.putNumber("Right Drive Base", this.mathRight); //Sends the right drive to the dashboard
         SmartDashboard.putBoolean("Is High Gear", this.inHighState); //Shows if its in high gear to the dashboard
         SmartDashboard.putBoolean("Drive Is Unrestricted", this.override); //Shows if the driver took off the restriction
-        SmartDashboard.putNumber("Left Encoder Distance", this.leftDistance);
-        SmartDashboard.putNumber("left Encoder Speed", this.leftSpeed);
+        SmartDashboard.putNumber("Left Encoder Distance", -this.leftDistance);
+        SmartDashboard.putNumber("left Encoder Speed", -this.leftSpeed);
         SmartDashboard.putNumber("Right Encoder Distance", this.rightDistance);
         SmartDashboard.putNumber("Right Encoder Speed", this.rightSpeed);
     }
