@@ -1,3 +1,11 @@
+/* 
+File Name: CIA_DriveBase.java
+Use: This is used as a drive base controller.
+Reuse: This file can be reused from year to year but will needed edited for which sensors are used
+       constants will need changed for that years robot.
+Files Directly Used / Is In: Robot.java and Subsystem_Variables.java
+*/
+
 package frc.subsystems;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -12,7 +20,8 @@ import edu.wpi.first.wpilibj.Solenoid;
 
 import frc.subsystems.Subsystem_Variables;
 
-import frc.sensors.CIA_SparkMax; //Our own SparkMax Code
+//Sensors used by this 
+import frc.sensors.CIA_SparkMax; //Our own import of the SparkMax Code
 import frc.sensors.CIA_Gyro;
 
 public class CIA_DriveBase {
@@ -33,7 +42,7 @@ public class CIA_DriveBase {
     Left Motor Port, Right Motor Port, Shifter Solenoid Port, Left Encoder Ports, Right Encoder Ports,
     The Deadband, The Low Speed, The High, The Override Speed, Right Side Reverse, All Sides Reversed
     The max tilt angle, The tilt angle correct speed
-    These values come from the robot.java class
+    These values come from the robot.java class which grab values from RobotMap.java and Constants.java
     */
     public CIA_DriveBase(int leftMotorsPort, int rightMotorsPort, int shifterSolenoidPort, int leftEncoderPortZero, int leftEncoderPortOne, int rightEncoderPortZero, int rightEncoderPortOne, double newDeadband, 
                         double newLowSpeed, double newHighSpeed, double newOverrideSpeed, boolean newIsRightReversed,
@@ -53,6 +62,7 @@ public class CIA_DriveBase {
         leftEncoder = new Encoder(leftEncoderPortZero, leftEncoderPortOne);
         rightEncoder = new Encoder(rightEncoderPortZero, rightEncoderPortOne);
         leftEncoder.setDistancePerPulse(1);
+        leftEncoder.setReverseDirection(true);
         rightEncoder.setDistancePerPulse(1);
 
         shifter = new Solenoid(shifterSolenoidPort); //Creates the solenoid object for shifting
@@ -234,8 +244,8 @@ public class CIA_DriveBase {
         SmartDashboard.putNumber("Right Drive Base", this.mathRight); //Sends the right drive to the dashboard
         SmartDashboard.putBoolean("Is High Gear", this.inHighState); //Shows if its in high gear to the dashboard
         SmartDashboard.putBoolean("Drive Is Unrestricted", this.override); //Shows if the driver took off the restriction
-        SmartDashboard.putNumber("Left Encoder Distance", -this.leftDistance);
-        SmartDashboard.putNumber("left Encoder Speed", -this.leftSpeed);
+        SmartDashboard.putNumber("Left Encoder Distance", this.leftDistance);
+        SmartDashboard.putNumber("left Encoder Speed", this.leftSpeed);
         SmartDashboard.putNumber("Right Encoder Distance", this.rightDistance);
         SmartDashboard.putNumber("Right Encoder Speed", this.rightSpeed);
     }

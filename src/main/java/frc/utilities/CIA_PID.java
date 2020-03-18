@@ -6,6 +6,8 @@ package frc.utilities;
  * @author Julia Cecchetti
  */
 
+//Taken from FRC Team 291's 2018 Robot Code
+
 public class CIA_PID {
 	double m_p;   // P coefficient
 	double m_i;   // I coefficient
