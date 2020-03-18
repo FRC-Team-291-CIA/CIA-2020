@@ -8,19 +8,23 @@ Files Directly Used / Is In: Robot.java and Subsystem_Variables.java
 
 package frc.subsystems;
 
+//The imports below is used for autonomous
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+
+//The imports below are used to control sensors and relay information
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 
+//Used to access the Subsystem Variables
 import frc.subsystems.Subsystem_Variables;
 
-//Sensors used by this 
+//Sensors used by this class
 import frc.sensors.CIA_SparkMax; //Our own import of the SparkMax Code
 import frc.sensors.CIA_Gyro;
 
