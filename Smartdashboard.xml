@@ -1,10 +1,10 @@
 <xml version="1.0">
 <dashboard>
 	<widget field="AUTO CHOOSER" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="1148" y="372"/>
+		<location x="95" y="633"/>
 	</widget>
 	<widget field="FIELD POSITION" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="1238" y="282"/>
+		<location x="0" y="628"/>
 	</widget>
 	<widget field="Right Drive Base" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="958" y="424"/>

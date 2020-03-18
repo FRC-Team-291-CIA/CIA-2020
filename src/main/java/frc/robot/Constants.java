@@ -13,6 +13,18 @@ public class Constants {
     public static final double driveMaxAngle = 10;
     public static final double driveTiltSpeedCorrect = 0.4;
     public static final double distancePerPulse = 1;
+    /*Below is used for autonomous driving
+    The constants are used for the voltage equation V = kS(displacement) + kV(velocity) + kA(acceleration)
+    for more info, check out this link, its really interesting:
+    https://docs.wpilib.org/en/latest/docs/software/wpilib-tools/robot-characterization/introduction.html*/
+    public static final double kS = 0.843;
+    public static final double kV = 0.0186;
+    public static final double kA = 0.00157;
+    public static final double kP = .6596;
+    public static final double kD = 0.0;
+    public static final double kMaxV = 120.0;
+    public static final double kMaxA = 40.0;
+    public static final double trackWidth = 65.832;
     //Below is used for intake
     public static final double intakePower = 0.80; //Power Used On The Intake
     public static final double outtakePower = -0.60; //Power Used On The Intake
