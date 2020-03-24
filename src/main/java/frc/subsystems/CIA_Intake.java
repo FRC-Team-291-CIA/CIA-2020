@@ -1,7 +1,19 @@
+/* 
+File Name: CIA_Intake.java
+Use: This is used as a intake controller.
+Reuse: This file can be reused from year to year but will needed edited for which sensors are used
+       constants will need changed for that years robot.
+Reuse Tips: If needed to add more motor, add more objects, then implement then in the code
+Files Directly Used / Is In: Robot.java
+Sensors Used: No sensors are used
+*/
+
 package frc.subsystems;
 
+//The below import is used for the smartdashboard
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+//The below import is used to control motors
 import frc.sensors.CIA_SparkMax;
 
 public class CIA_Intake {
@@ -12,15 +24,15 @@ public class CIA_Intake {
 
     /*
     Below is a constructor that takes in the following in order: 
-    The first motor port, The second motor port, The Power of Motors, If it is reversed
-    These values come from Robot.java
+    The motors, The Intake Power of Motors, The outtake power of motors, If it is reversed
+    These values come from the robot.java class which grab values from RobotMap.java and Constants.java
     */
     public CIA_Intake(int newMotorPort, double newIntakePower, double newOuttakePower, boolean newIsReversed){
         //Below creates the spark
         motor = new CIA_SparkMax(newMotorPort); //Creates the sparks
       
         intakePower = newIntakePower; //Takes in the power variable
-        outtakePower = newOuttakePower;
+        outtakePower = newOuttakePower; //Takes in the outtake speed
       
         isReversed = newIsReversed; //Takes in if its reversed
     }

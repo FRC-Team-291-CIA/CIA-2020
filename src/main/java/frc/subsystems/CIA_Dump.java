@@ -1,3 +1,14 @@
+/* 
+File Name: CIA_Dump.java
+Use: This is used as a controller for a solenoid dump
+Reuse: This file can be reused from year to year but will needed edited for which sensors are used
+       constants will need changed for that years robot.
+Reuse Tips: If needed to add more motor, add more objects, then add them to the speed controll groups.
+            Highly reccomended to hard code disabled anti - tip until you are on the practice field
+Files Directly Used / Is In: Robot.java and Subsystem_Variables.java
+Sensors Used: Two magnetic encoders locatd in the gearbox, Gyro mounted on the RoboRio
+*/
+
 package frc.subsystems;
 
 import edu.wpi.first.wpilibj.Solenoid;

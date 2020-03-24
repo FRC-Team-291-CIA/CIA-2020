@@ -23,7 +23,7 @@ public interface Subsystems{
 
     /*
     Below is a constructor that takes in the following in order: 
-    The first motor port, The second motor port, The Power of Motors, If it is reversed
+    The motors, The Intake Power of Motors, The outtake power of motors, If it is reversed
     */
     public static final CIA_Intake intake = new CIA_Intake(RobotMap.intakeMotorPort, Constants.intakePower, 
         Constants.outtakePower, Constants.intakeIsReversed);

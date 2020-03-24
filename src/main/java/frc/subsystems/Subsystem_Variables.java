@@ -2,7 +2,9 @@
 File Name: Subsystem_Variables.java
 Use: This is used as a "package" variables
 Reuse: This file is not intended to be reused
+Reuse Tips: N/A
 Files Directly Used / Is In: CIA_DriveBase.java and CIA_Climber.java
+Sensors Used: N/A
 */
 
 package frc.subsystems;
