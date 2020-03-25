@@ -100,10 +100,11 @@ public class CIA_DriveBase {
 
         if (isAllReversed){ //Checks if the entire bot is inverted
             leftGroup.setInverted(true); //Invertes the left group if true
-            rightGroup.setInverted(true); //Inverts the right group if true
             
             if (rightGroup.getInverted()){ //Checks if the right group is inverted if true
                 rightGroup.setInverted(false); //Invertes the right group, negating the original invert, if true
+            } else {
+                rightGroup.setInverted(true); //Sets the invert for right side to true
             }
         }
     }
@@ -117,7 +118,7 @@ public class CIA_DriveBase {
         }
     }
 
-    //TODO - Rewrite tikt correction
+    //TODO - Rewrite tilt correction
     /*
     -Will need to only run the wheels in one rotation (Will need failsafe)
     -Adjustable Power based on tilt

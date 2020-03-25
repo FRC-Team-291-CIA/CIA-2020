@@ -1,8 +1,21 @@
+/* 
+File Name: CIA_ControlPanel.java
+Use: This is used as a controller for the control panel attachment.
+Reuse: This file is not intended to be reused every year.
+Reuse Tips: N/A
+Files Directly Used / Is In: Robot.java
+Sensors Used: Color Sensor and Limelight Camera is used
+*/
+
 package frc.subsystems;
 
+//The below import is used to show data on the smartdashboard
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+//The below import is to show which side we are on
 import edu.wpi.first.wpilibj.DriverStation;
 
+//THe below imports are used to control motors and read sensors
 import frc.sensors.CIA_SparkMax;
 import frc.sensors.CIA_ColorSensor;
 

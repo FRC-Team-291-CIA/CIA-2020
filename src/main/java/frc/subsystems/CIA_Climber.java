@@ -1,3 +1,12 @@
+/* 
+File Name: CIA_Climber.java
+Use: This is used the controller for a piston and hook climber.
+Reuse: This file is not intended to be reused.
+Reuse Tips: N/A
+Files Directly Used / Is In: Robot.java and Subsystem_Variables.java
+Sensors Used: A USB camera is used
+*/
+
 package frc.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -40,28 +49,28 @@ public class CIA_Climber {
         motorLeft = new Spark(newMotorLeftPort);
         motorRight = new Spark(newMotorRightPort);
         
-        this.setInvertedMotors(newIsRightReversed, newIsAllReversed);
+        this.setInvertedMotors(newIsRightReversed, newIsAllReversed); //Sets the inverted motors
 
-        motorSpeed = newMotorSpeed;
+        motorSpeed = newMotorSpeed; //Takes in the winch speed
 
-        winch = new SpeedControllerGroup(motorLeft, motorRight);
+        winch = new SpeedControllerGroup(motorLeft, motorRight); //Creates a speed controllor group
 
-        piston = new DoubleSolenoid(newPistonZeroPort, newPistonOnePort);
+        piston = new DoubleSolenoid(newPistonZeroPort, newPistonOnePort); //Creates a double solenoid
     }
 
     //The method below checks to see which motors need reversed
     private void setInvertedMotors(boolean isRightReversed, boolean isAllReversed){
-        if (isRightReversed){
-            motorRight.setInverted(true);
+        if (isRightReversed){ //Checks if the right motor needs revered
+            motorRight.setInverted(true); //Inverts the right group if true
         }
 
-        if (isAllReversed){
-            motorLeft.setInverted(true);
+        if (isAllReversed){ //Checks if the entire climber is inverted
+            motorLeft.setInverted(true); //Invertes the left group if true
 
-            if (motorRight.getInverted()){
-                motorRight.setInverted(false);
+            if (motorRight.getInverted()){ //Checks if the right group is inverted if true
+                motorRight.setInverted(false); //Invertes the right group, negating the original invert, if true
             } else {
-                motorRight.setInverted(true);
+                motorRight.setInverted(true); //Sets the invert for right side to true
             }
         }
     }
@@ -77,7 +86,7 @@ public class CIA_Climber {
                 winch.set(0.00);
                 piston.set(Value.kForward);
                 break; 
-            case CLIMB: //Used if its bringing the climber down
+            case CLIMB: //Used if its bringing the climber down while attached
                 lastState = climbState.CLIMB;
 
                 if (hasGoneUp){
@@ -138,6 +147,6 @@ public class CIA_Climber {
     }
 
     public void update(){
-        SmartDashboard.putString("Climber Current State", currentState);
+        SmartDashboard.putString("Climber Current State", currentState); //Used to display the climber state
     }
 }
